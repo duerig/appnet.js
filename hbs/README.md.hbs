@@ -6,7 +6,16 @@ as a jQuery module.
 # Example
 
 <pre>
-var promise = $.appnet().post.global({ include_annotations: 1 });
+$.appnet().authorize("MY_USER_TOKEN");
+var promise = $.appnet().post.getGlobal({ include_annotations: 1 });
+promise.then(function (response) {
+  console.dir(response);
+  return $.appnet().post.getThread('1000', { count: 10 });
+}).then(function (response) {
+  console.dir(response);
+}, function (response) {
+  console.log('Error!');
+});
 </pre>
 
 # Reference
