@@ -14,8 +14,8 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
 <table>
   <thead>
     <tr>
-      <th width="320">Method</th>
-      <th width="410">Description</th>
+      <th width="410">Method</th>
+      <th width="320">Description</th>
       <th width="60">Token</th>
       <th width="60">scope</th>
     </tr>
@@ -28,7 +28,7 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
           user_id,
         
         
-         url_args)</td>
+         args )</td>
       <td><a href="http://developers.app.net/docs/resources/user/lookup/#retrieve-a-user">Retrieve a User</a></td>
       <td>None</td>
       <td>basic</td>
@@ -40,8 +40,20 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
         
           user,
         
-         url_args)</td>
+         args )</td>
       <td><a href="http://developers.app.net/docs/resources/user/profile/#update-a-user">Update a User</a></td>
+      <td>User</td>
+      <td>update_profile</td>
+    </tr>
+    
+    <tr>
+      <td>user.partialUpdate(
+        
+        
+          user,
+        
+         args )</td>
+      <td><a href="http://developers.app.net/docs/resources/user/profile/#partially-update-a-user">Partially Update a User</a></td>
       <td>User</td>
       <td>update_profile</td>
     </tr>
@@ -52,7 +64,7 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
           user_id,
         
         
-         url_args)</td>
+         args )</td>
       <td><a href="http://developers.app.net/docs/resources/user/profile/#retrieve-a-users-avatar-image">Retrieve a User&#x27;s avatar image</a></td>
       <td>None</td>
       <td>basic</td>
@@ -64,7 +76,7 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
         
           avatar,
         
-         url_args)</td>
+         args )</td>
       <td><a href="http://developers.app.net/docs/resources/user/profile/#update-a-users-avatar-image">Update a User&#x27;s avatar image</a></td>
       <td>User</td>
       <td>update_profile</td>
@@ -76,7 +88,7 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
           user_id,
         
         
-         url_args)</td>
+         args )</td>
       <td><a href="http://developers.app.net/docs/resources/user/profile/#retrieve-a-users-cover-image">Retrieve a User&#x27;s cover image</a></td>
       <td>None</td>
       <td>basic</td>
@@ -88,7 +100,7 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
         
           cover,
         
-         url_args)</td>
+         args )</td>
       <td><a href="http://developers.app.net/docs/resources/user/profile/#update-a-users-cover-image">Update a User&#x27;s cover image</a></td>
       <td>User</td>
       <td>update_profile</td>
@@ -100,7 +112,7 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
           user_id,
         
         
-         url_args)</td>
+         args )</td>
       <td><a href="http://developers.app.net/docs/resources/user/following/#follow-a-user">Follow a User</a></td>
       <td>User</td>
       <td>follow</td>
@@ -112,7 +124,7 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
           user_id,
         
         
-         url_args)</td>
+         args )</td>
       <td><a href="http://developers.app.net/docs/resources/user/following/#unfollow-a-user">Unfollow a User</a></td>
       <td>User</td>
       <td>follow</td>
@@ -124,7 +136,7 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
           user_id,
         
         
-         url_args)</td>
+         args )</td>
       <td><a href="http://developers.app.net/docs/resources/user/muting/#mute-a-user">Mute a User</a></td>
       <td>User</td>
       <td>follow</td>
@@ -136,7 +148,7 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
           user_id,
         
         
-         url_args)</td>
+         args )</td>
       <td><a href="http://developers.app.net/docs/resources/user/muting/#unmute-a-user">Unmute a User</a></td>
       <td>User</td>
       <td>follow</td>
@@ -148,7 +160,7 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
           user_id,
         
         
-         url_args)</td>
+         args )</td>
       <td><a href="http://developers.app.net/docs/resources/user/blocking/#block-a-user">Block a User</a></td>
       <td>User</td>
       <td>follow</td>
@@ -160,7 +172,7 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
           user_id,
         
         
-         url_args)</td>
+         args )</td>
       <td><a href="http://developers.app.net/docs/resources/user/blocking/#unblock-a-user">Unblock a User</a></td>
       <td>User</td>
       <td>follow</td>
@@ -172,7 +184,7 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
         
         
           user_ids,
-         url_args)</td>
+         args )</td>
       <td><a href="http://developers.app.net/docs/resources/user/lookup/#retrieve-multiple-users">Retrieve multiple Users</a></td>
       <td>Any</td>
       <td>basic</td>
@@ -182,7 +194,7 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
       <td>user.search(
         
         
-         url_args)</td>
+         args )</td>
       <td><a href="http://developers.app.net/docs/resources/user/lookup/#search-for-users">Search for Users</a></td>
       <td>Any</td>
       <td>basic</td>
@@ -194,7 +206,7 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
           user_id,
         
         
-         url_args)</td>
+         args )</td>
       <td><a href="http://developers.app.net/docs/resources/user/following/#list-users-a-user-is-following">Retrieve Users a User is following</a></td>
       <td>Any</td>
       <td>basic</td>
@@ -206,7 +218,7 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
           user_id,
         
         
-         url_args)</td>
+         args )</td>
       <td><a href="http://developers.app.net/docs/resources/user/following/#list-users-following-a-user">Retrieve Users following a User</a></td>
       <td>Any</td>
       <td>basic</td>
@@ -218,7 +230,7 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
           user_id,
         
         
-         url_args)</td>
+         args )</td>
       <td><a href="http://developers.app.net/docs/resources/user/following/#list-user-ids-a-user-is-following">Retrieve IDs of Users a User is following</a></td>
       <td>Any</td>
       <td>basic</td>
@@ -230,7 +242,7 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
           user_id,
         
         
-         url_args)</td>
+         args )</td>
       <td><a href="http://developers.app.net/docs/resources/user/following/#list-user-ids-following-a-user">Retrieve IDs of Users following a User</a></td>
       <td>Any</td>
       <td>basic</td>
@@ -242,7 +254,7 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
           user_id,
         
         
-         url_args)</td>
+         args )</td>
       <td><a href="http://developers.app.net/docs/resources/user/muting/#list-muted-users">Retrieve muted Users</a></td>
       <td>Any</td>
       <td>basic</td>
@@ -254,7 +266,7 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
         
         
           user_ids,
-         url_args)</td>
+         args )</td>
       <td><a href="http://developers.app.net/docs/resources/user/muting/#retrieve-muted-user-ids-for-multiple-users">Retrieve muted User IDs for multiple Users</a></td>
       <td>App</td>
       <td>basic</td>
@@ -266,7 +278,7 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
           user_id,
         
         
-         url_args)</td>
+         args )</td>
       <td><a href="http://developers.app.net/docs/resources/user/blocking/#list-blocked-users">Retrieve blocked Users</a></td>
       <td>Any</td>
       <td>basic</td>
@@ -278,8 +290,8 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
         
         
           user_ids,
-         url_args)</td>
-      <td><a href="Retrieve blocked User IDs for multiple Users">http://developers.app.net/docs/resources/user/blocking/#retrieve-blocked-user-ids-for-multiple-users</a></td>
+         args )</td>
+      <td><a href="http://developers.app.net/docs/resources/user/blocking/#retrieve-blocked-user-ids-for-multiple-users">Retrieve blocked User IDs for multiple Users</a></td>
       <td>App</td>
       <td>basic</td>
     </tr>
@@ -290,7 +302,7 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
           post_id,
         
         
-         url_args)</td>
+         args )</td>
       <td><a href="http://developers.app.net/docs/resources/user/post-interactions/#list-users-who-have-reposted-a-post">Retrieve Users who reposted a Post</a></td>
       <td>Any</td>
       <td>basic</td>
@@ -302,7 +314,7 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
           post_id,
         
         
-         url_args)</td>
+         args )</td>
       <td><a href="http://developers.app.net/docs/resources/user/post-interactions/#list-users-who-have-starred-a-post">Retrieve Users who starred a Post</a></td>
       <td>Any</td>
       <td>basic</td>
@@ -314,7 +326,7 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
         
           post,
         
-         url_args)</td>
+         args )</td>
       <td><a href="http://developers.app.net/docs/resources/post/lifecycle/#create-a-post">Create a Post</a></td>
       <td>User</td>
       <td>write_post</td>
@@ -326,7 +338,7 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
           post_id,
         
         
-         url_args)</td>
+         args )</td>
       <td><a href="http://developers.app.net/docs/resources/post/lookup/#retrieve-a-post">Retrieve a Post</a></td>
       <td>None</td>
       <td>basic</td>
@@ -338,7 +350,7 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
           post_id,
         
         
-         url_args)</td>
+         args )</td>
       <td><a href="http://developers.app.net/docs/resources/post/lifecycle/#delete-a-post">Delete a Post</a></td>
       <td>User</td>
       <td>write_post</td>
@@ -350,7 +362,7 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
           post_id,
         
         
-         url_args)</td>
+         args )</td>
       <td><a href="http://developers.app.net/docs/resources/post/reposts/#repost-a-post">Repost a Post</a></td>
       <td>User</td>
       <td>write_post</td>
@@ -362,7 +374,7 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
           post_id,
         
         
-         url_args)</td>
+         args )</td>
       <td><a href="http://developers.app.net/docs/resources/post/reposts/#unrepost-a-post">Unrepost a Post</a></td>
       <td>User</td>
       <td>write_post</td>
@@ -374,7 +386,7 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
           post_id,
         
         
-         url_args)</td>
+         args )</td>
       <td><a href="http://developers.app.net/docs/resources/post/stars/#star-a-post">Star a Post</a></td>
       <td>User</td>
       <td>write_post</td>
@@ -386,7 +398,7 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
           post_id,
         
         
-         url_args)</td>
+         args )</td>
       <td><a href="http://developers.app.net/docs/resources/post/stars/#unstar-a-post">Unstar a Post</a></td>
       <td>User</td>
       <td>write_post</td>
@@ -398,7 +410,7 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
         
         
           post_ids,
-         url_args)</td>
+         args )</td>
       <td><a href="http://developers.app.net/docs/resources/post/lookup/#retrieve-multiple-posts">Retrieve multiple Posts</a></td>
       <td>Any</td>
       <td>basic</td>
@@ -410,7 +422,7 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
           user_id,
         
         
-         url_args)</td>
+         args )</td>
       <td><a href="http://developers.app.net/docs/resources/post/streams/#retrieve-posts-created-by-a-user">Retrieve a User&#x27;s posts</a></td>
       <td>None</td>
       <td>basic</td>
@@ -422,7 +434,7 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
           user_id,
         
         
-         url_args)</td>
+         args )</td>
       <td><a href="http://developers.app.net/docs/resources/post/stars/#retrieve-posts-starred-by-a-user">Retrieve a User&#x27;s starred posts</a></td>
       <td>None</td>
       <td>basic</td>
@@ -434,7 +446,7 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
           user_id,
         
         
-         url_args)</td>
+         args )</td>
       <td><a href="http://developers.app.net/docs/resources/post/streams/#retrieve-posts-mentioning-a-user">Retrieve Posts mentioning a User</a></td>
       <td>Any</td>
       <td>basic</td>
@@ -446,7 +458,7 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
           hashtag,
         
         
-         url_args)</td>
+         args )</td>
       <td><a href="http://developers.app.net/docs/resources/post/streams/#retrieve-tagged-posts">Retrieve Posts containing a hashtag</a></td>
       <td>None</td>
       <td>basic</td>
@@ -458,7 +470,7 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
           post_id,
         
         
-         url_args)</td>
+         args )</td>
       <td><a href="http://developers.app.net/docs/resources/post/replies">Retrieve replies to a Post</a></td>
       <td>Any</td>
       <td>basic</td>
@@ -468,7 +480,7 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
       <td>post.getUserStream(
         
         
-         url_args)</td>
+         args )</td>
       <td><a href="http://developers.app.net/docs/resources/post/streams/#retrieve-a-users-personalized-stream">Retrieve a User&#x27;s personalized stream</a></td>
       <td>User</td>
       <td>stream</td>
@@ -478,7 +490,7 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
       <td>stream.getUnifiedStream(
         
         
-         url_args)</td>
+         args )</td>
       <td><a href="http://developers.app.net/docs/resources/post/streams/#retrieve-a-users-unified-stream">Retrieve a User&#x27;s unified stream</a></td>
       <td>User</td>
       <td>stream</td>
@@ -488,7 +500,7 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
       <td>post.getGlobal(
         
         
-         url_args)</td>
+         args )</td>
       <td><a href="http://developers.app.net/docs/resources/post/streams/#retrieve-the-global-stream">Retrieve the Global stream</a></td>
       <td>User</td>
       <td>basic</td>
@@ -500,7 +512,7 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
           post_id,
         
         
-         url_args)</td>
+         args )</td>
       <td><a href="http://developers.app.net/docs/resources/post/report/#report-a-post">Report a Post</a></td>
       <td>User</td>
       <td>basic</td>
@@ -510,7 +522,7 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
       <td>channel.getUserSubscribed(
         
         
-         url_args)</td>
+         args )</td>
       <td><a href="http://developers.app.net/docs/resources/channel/subscriptions/#get-current-users-subscribed-channels">Get current user&#x27;s subscribed channels</a></td>
       <td>User</td>
       <td>messages</td>
@@ -522,7 +534,7 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
         
           channel,
         
-         url_args)</td>
+         args )</td>
       <td><a href="http://developers.app.net/docs/resources/channel/lifecycle/#create-a-channel">Create a Channel</a></td>
       <td>User</td>
       <td>messages</td>
@@ -534,7 +546,7 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
           channel_id,
         
         
-         url_args)</td>
+         args )</td>
       <td><a href="http://developers.app.net/docs/resources/channel/lookup/#retrieve-a-channel">Retrieve a Channel</a></td>
       <td>Varies</td>
       <td>messages</td>
@@ -546,7 +558,7 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
         
         
           channel_ids,
-         url_args)</td>
+         args )</td>
       <td><a href="http://developers.app.net/docs/resources/channel/lookup/#retrieve-multiple-channels">Retrieve multiple Channels</a></td>
       <td>Varies</td>
       <td>messages</td>
@@ -556,7 +568,7 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
       <td>channel.getCreated(
         
         
-         url_args)</td>
+         args )</td>
       <td><a href="http://developers.app.net/docs/resources/channel/lookup/#retrieve-my-channels">Retrieve my Channels</a></td>
       <td>User</td>
       <td>messages</td>
@@ -566,7 +578,7 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
       <td>channel.getUnreadCount(
         
         
-         url_args)</td>
+         args )</td>
       <td><a href="http://developers.app.net/docs/resources/channel/lookup/#retrieve-number-of-unread-pm-channels">Retrieve number of unread PM Channels</a></td>
       <td>User</td>
       <td>messages</td>
@@ -580,7 +592,7 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
         
           channel,
         
-         url_args)</td>
+         args )</td>
       <td><a href="http://developers.app.net/docs/resources/channel/lifecycle/#update-a-channel">Update a Channel</a></td>
       <td>User</td>
       <td>messages</td>
@@ -592,7 +604,7 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
           channel_id,
         
         
-         url_args)</td>
+         args )</td>
       <td><a href="http://developers.app.net/docs/resources/channel/subscriptions/#subscribe-to-a-channel">Subscribe to a Channel</a></td>
       <td>User</td>
       <td>messages</td>
@@ -604,7 +616,7 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
           channel_id,
         
         
-         url_args)</td>
+         args )</td>
       <td><a href="http://developers.app.net/docs/resources/channel/subscriptions/#unsubscribe-from-a-channel">Unsubscribe from a Channel</a></td>
       <td>User</td>
       <td>messages</td>
@@ -616,7 +628,7 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
           channel_id,
         
         
-         url_args)</td>
+         args )</td>
       <td><a href="http://developers.app.net/docs/resources/channel/subscriptions/#retrieve-users-subscribed-to-a-channel">Retrieve users subscribed to a Channel</a></td>
       <td>None</td>
       <td>messages</td>
@@ -628,7 +640,7 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
           channel_id,
         
         
-         url_args)</td>
+         args )</td>
       <td><a href="http://developers.app.net/docs/resources/channel/subscriptions/#retrieve-user-ids-subscribed-to-a-channel">Retrieve user ids subscribed to a Channel</a></td>
       <td>None</td>
       <td>messages</td>
@@ -640,7 +652,7 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
         
         
           channel_ids,
-         url_args)</td>
+         args )</td>
       <td><a href="http://developers.app.net/docs/resources/channel/subscriptions/#retrieve-user-ids-subscribed-to-a-channel">Retrieve user ids subscribed to multiple Channels</a></td>
       <td>Any</td>
       <td>messages</td>
@@ -652,7 +664,7 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
           channel_id,
         
         
-         url_args)</td>
+         args )</td>
       <td><a href="http://developers.app.net/docs/resources/channel/muting/#mute-a-channel">Mute a Channel</a></td>
       <td>User</td>
       <td>messages</td>
@@ -664,7 +676,7 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
           channel_id,
         
         
-         url_args)</td>
+         args )</td>
       <td><a href="http://developers.app.net/docs/resources/channel/muting/#unmute-a-channel">Unmute a Channel</a></td>
       <td>User</td>
       <td>messages</td>
@@ -674,7 +686,7 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
       <td>channel.getMuted(
         
         
-         url_args)</td>
+         args )</td>
       <td><a href="http://developers.app.net/docs/resources/channel/muting/#get-current-users-muted-channels">Get current user&#x27;s muted Channels</a></td>
       <td>User</td>
       <td>messages</td>
@@ -686,7 +698,7 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
           channel_id,
         
         
-         url_args)</td>
+         args )</td>
       <td><a href="http://developers.app.net/docs/resources/message/lifecycle/#retrieve-the-messages-in-a-channel">Retrieve the Messages in a Channel</a></td>
       <td>None</td>
       <td>messages</td>
@@ -700,7 +712,7 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
         
           message,
         
-         url_args)</td>
+         args )</td>
       <td><a href="http://developers.app.net/docs/resources/message/lifecycle/#create-a-message">Create a Message</a></td>
       <td>User</td>
       <td>messages</td>
@@ -714,7 +726,7 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
           message_id,
         
         
-         url_args)</td>
+         args )</td>
       <td><a href="http://developers.app.net/docs/resources/message/lookup/#retrieve-a-message">Retrieve a Message</a></td>
       <td>None</td>
       <td>messages</td>
@@ -726,7 +738,7 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
         
         
           message_ids,
-         url_args)</td>
+         args )</td>
       <td><a href="http://developers.app.net/docs/resources/message/lookup/#retrieve-multiple-messages">Retrieve multiple Messages</a></td>
       <td>None</td>
       <td>messages</td>
@@ -736,7 +748,7 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
       <td>message.getUserMessages(
         
         
-         url_args)</td>
+         args )</td>
       <td><a href="http://developers.app.net/docs/resources/message/lookup/#retrieve-my-messages">Retrieve my Messages</a></td>
       <td>User</td>
       <td>messages</td>
@@ -750,7 +762,7 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
           message_id,
         
         
-         url_args)</td>
+         args )</td>
       <td><a href="http://developers.app.net/docs/resources/message/lifecycle/#delete-a-message">Delete a Message</a></td>
       <td>User</td>
       <td>messages</td>
@@ -762,7 +774,7 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
         
           file,
         
-         url_args)</td>
+         args )</td>
       <td><a href="http://developers.app.net/docs/resources/file/lifecycle/#create-a-file">Create a File</a></td>
       <td>User</td>
       <td>files</td>
@@ -774,7 +786,7 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
         
           file,
         
-         url_args)</td>
+         args )</td>
       <td><a href="http://developers.app.net/docs/resources/file/lifecycle/#create-a-file">Create a File Placeholder</a></td>
       <td>User</td>
       <td>files</td>
@@ -786,7 +798,7 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
           file_id,
         
         
-         url_args)</td>
+         args )</td>
       <td><a href="http://developers.app.net/docs/resources/file/lookup/#retrieve-a-file">Retrieve a File</a></td>
       <td>User</td>
       <td>basic</td>
@@ -798,7 +810,7 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
         
         
           file_ids,
-         url_args)</td>
+         args )</td>
       <td><a href="http://developers.app.net/docs/resources/file/lookup/#retrieve-multiple-files">Retrieve multiple Files</a></td>
       <td>User</td>
       <td>files</td>
@@ -810,7 +822,7 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
           file_id,
         
         
-         url_args)</td>
+         args )</td>
       <td><a href="http://developers.app.net/docs/resources/file/lifecycle/#delete-a-file">Delete a File</a></td>
       <td>User</td>
       <td>files</td>
@@ -820,7 +832,7 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
       <td>file.getUserFiles(
         
         
-         url_args)</td>
+         args )</td>
       <td><a href="http://developers.app.net/docs/resources/file/lookup/#retrieve-my-files">Retrieve my Files</a></td>
       <td>User</td>
       <td>files</td>
@@ -834,7 +846,7 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
         
           file,
         
-         url_args)</td>
+         args )</td>
       <td><a href="http://developers.app.net/docs/resources/file/lifecycle/#update-a-file">Update a File</a></td>
       <td>User</td>
       <td>files</td>
@@ -846,7 +858,7 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
           file_id,
         
         
-         url_args)</td>
+         args )</td>
       <td><a href="http://developers.app.net/docs/resources/file/content/#get-file-content">Get File content</a></td>
       <td>User</td>
       <td>files</td>
@@ -860,7 +872,7 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
         
           content,
         
-         url_args)</td>
+         args )</td>
       <td><a href="http://developers.app.net/docs/resources/file/content/#set-file-content">Set File content</a></td>
       <td>User</td>
       <td>files</td>
@@ -872,7 +884,7 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
         
           stream,
         
-         url_args)</td>
+         args )</td>
       <td><a href="http://developers.app.net/docs/resources/stream/lifecycle/#create-a-stream">Create a Stream</a></td>
       <td>App</td>
       <td>basic</td>
@@ -884,7 +896,7 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
           stream_id,
         
         
-         url_args)</td>
+         args )</td>
       <td><a href="http://developers.app.net/docs/resources/stream/lifecycle/#retrieve-a-stream">Retrieve a Stream</a></td>
       <td>App</td>
       <td>basic</td>
@@ -898,7 +910,7 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
         
           stream,
         
-         url_args)</td>
+         args )</td>
       <td><a href="http://developers.app.net/docs/resources/stream/lifecycle/#update-a-stream">Update a Stream</a></td>
       <td>App</td>
       <td>basic</td>
@@ -910,7 +922,7 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
           stream_id,
         
         
-         url_args)</td>
+         args )</td>
       <td><a href="http://developers.app.net/docs/resources/stream/lifecycle/#delete-a-stream">Delete a Stream</a></td>
       <td>App</td>
       <td>basic</td>
@@ -920,7 +932,7 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
       <td>stream.getAll(
         
         
-         url_args)</td>
+         args )</td>
       <td><a href="http://developers.app.net/docs/resources/stream/lifecycle/#get-current-tokens-streams">Retrieve all Streams for the current Token</a></td>
       <td>App</td>
       <td>basic</td>
@@ -930,7 +942,7 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
       <td>stream.destroyAll(
         
         
-         url_args)</td>
+         args )</td>
       <td><a href="http://developers.app.net/docs/resources/stream/lifecycle/#delete-all-of-the-current-users-streams">Delete all Streams for the current Token</a></td>
       <td>App</td>
       <td>basic</td>
@@ -942,7 +954,7 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
         
           filter,
         
-         url_args)</td>
+         args )</td>
       <td><a href="http://developers.app.net/docs/resources/filter/lifecycle/#create-a-filter">Create a Filter</a></td>
       <td>User</td>
       <td>basic</td>
@@ -954,7 +966,7 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
           filter_id,
         
         
-         url_args)</td>
+         args )</td>
       <td><a href="http://developers.app.net/docs/resources/filter/lifecycle/#retrieve-a-filter">Retrieve a Filter</a></td>
       <td>User</td>
       <td>basic</td>
@@ -968,7 +980,7 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
         
           filter,
         
-         url_args)</td>
+         args )</td>
       <td><a href="http://developers.app.net/docs/resources/filter/lifecycle/#update-a-filter">Update a Filter</a></td>
       <td>User</td>
       <td>basic</td>
@@ -980,7 +992,7 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
           filter_id,
         
         
-         url_args)</td>
+         args )</td>
       <td><a href="http://developers.app.net/docs/resources/filter/lifecycle/#delete-a-filter">Delete a Filter</a></td>
       <td>User</td>
       <td>basic</td>
@@ -990,7 +1002,7 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
       <td>filter.getUserFilters(
         
         
-         url_args)</td>
+         args )</td>
       <td><a href="http://developers.app.net/docs/resources/filter/lifecycle/#get-current-users-filters">Get the current User&#x27;s Filters</a></td>
       <td>User</td>
       <td>basic</td>
@@ -1000,7 +1012,7 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
       <td>filter.destroyUserFilters(
         
         
-         url_args)</td>
+         args )</td>
       <td><a href="http://developers.app.net/docs/resources/filter/lifecycle/#delete-all-of-the-current-users-filters">Delete the current User&#x27;s Filters</a></td>
       <td>User</td>
       <td>basic</td>
@@ -1010,7 +1022,7 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
       <td>interaction.get(
         
         
-         url_args)</td>
+         args )</td>
       <td><a href="http://developers.app.net/docs/resources/interaction/">Retrieve Interactions with the current User</a></td>
       <td>User</td>
       <td>basic</td>
@@ -1022,7 +1034,7 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
         
           marker,
         
-         url_args)</td>
+         args )</td>
       <td><a href="http://developers.app.net/docs/resources/stream-marker/#update-a-stream-marker">Update a Stream Marker</a></td>
       <td>User</td>
       <td>basic</td>
@@ -1034,7 +1046,7 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
         
           post_or_message,
         
-         url_args)</td>
+         args )</td>
       <td><a href="http://developers.app.net/docs/resources/text-processor/">Process text</a></td>
       <td>Any</td>
       <td>basic</td>
@@ -1044,7 +1056,7 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
       <td>token.get(
         
         
-         url_args)</td>
+         args )</td>
       <td><a href="http://developers.app.net/docs/resources/token/#retrieve-current-token">Retrieve the current token</a></td>
       <td>Any</td>
       <td>basic</td>
@@ -1054,7 +1066,7 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
       <td>token.getAuthorizedIds(
         
         
-         url_args)</td>
+         args )</td>
       <td><a href="http://developers.app.net/docs/resources/token/#retrieve-authorized-user-ids-for-an-app">Retrieve authorized User IDs for an app</a></td>
       <td>App</td>
       <td>basic</td>
@@ -1064,7 +1076,7 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
       <td>token.getAuthorizedTokens(
         
         
-         url_args)</td>
+         args )</td>
       <td><a href="http://developers.app.net/docs/resources/token/#retrieve-authorized-user-tokens-for-an-app">Retrieve authorized User tokens for an app</a></td>
       <td>App</td>
       <td>basic</td>
@@ -1076,7 +1088,7 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
           place_id,
         
         
-         url_args)</td>
+         args )</td>
       <td><a href="http://developers.app.net/docs/resources/place/#retrieve-a-place">Retrieve a Place</a></td>
       <td>Any</td>
       <td>basic</td>
@@ -1086,7 +1098,7 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
       <td>place.search(
         
         
-         url_args)</td>
+         args )</td>
       <td><a href="http://developers.app.net/docs/resources/place/#search-for-a-place">Search for Places</a></td>
       <td>User</td>
       <td>basic</td>
@@ -1096,7 +1108,7 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
       <td>explore.show(
         
         
-         url_args)</td>
+         args )</td>
       <td><a href="http://developers.app.net/docs/resources/explore/#retrieve-all-explore-streams">Retrieve all Explore Streams</a></td>
       <td>None</td>
       <td>basic</td>
@@ -1108,7 +1120,7 @@ var promise = $.appnet().post.global({ include_annotations: 1 });
           slug,
         
         
-         url_args)</td>
+         args )</td>
       <td><a href="http://developers.app.net/docs/resources/explore/#retrieve-an-explore-stream">Retrieve an Explore Stream</a></td>
       <td>None</td>
       <td>basic</td>

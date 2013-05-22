@@ -128,6 +128,24 @@
             "link": "http://developers.app.net/docs/resources/user/profile/#update-a-user"
         },
         {
+            "id": "124",
+            "group": "user",
+            "name": "partialUpdate",
+            "url_params": [],
+            "data_params": [
+                "user"
+            ],
+            "array_params": [],
+            "method": "PATCH",
+            "url": [
+                "users/me"
+            ],
+            "token": "User",
+            "scope": "update_profile",
+            "description": "Partially Update a User",
+            "link": "http://developers.app.net/docs/resources/user/profile/#partially-update-a-user"
+        },
+        {
             "id": "102",
             "group": "user",
             "name": "getAvatar",
@@ -496,8 +514,8 @@
             ],
             "token": "App",
             "scope": "basic",
-            "description": "http://developers.app.net/docs/resources/user/blocking/#retrieve-blocked-user-ids-for-multiple-users",
-            "link": "Retrieve blocked User IDs for multiple Users"
+            "description": "Retrieve blocked User IDs for multiple Users",
+            "link": "http://developers.app.net/docs/resources/user/blocking/#retrieve-blocked-user-ids-for-multiple-users"
         },
         {
             "id": "122",
