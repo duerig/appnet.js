@@ -23,7 +23,8 @@ promise.then(function (response) {
 <table>
   <thead>
     <tr>
-      <th width="410">Method</th>
+      <th width="200">Method</th>
+      <th width="210">Parameters</th>
       <th width="320">Description</th>
       <th width="60">Token</th>
       <th width="60">scope</th>
@@ -32,7 +33,8 @@ promise.then(function (response) {
   <tbody>
     {{#each endpoints}}
     <tr>
-      <td>{{group}}.{{name}}(
+      <td>{{group}}.{{name}}</td>
+      <td>(
         {{#each url_params}}
           {{this}},
         {{/each}}

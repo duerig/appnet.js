@@ -23,7 +23,8 @@ promise.then(function (response) {
 <table>
   <thead>
     <tr>
-      <th width="410">Method</th>
+      <th width="200">Method</th>
+      <th width="210">Parameters</th>
       <th width="320">Description</th>
       <th width="60">Token</th>
       <th width="60">scope</th>
@@ -32,7 +33,8 @@ promise.then(function (response) {
   <tbody>
     
     <tr>
-      <td>user.get(
+      <td>user.get</td>
+      <td>(
         
           user_id,
         
@@ -44,7 +46,8 @@ promise.then(function (response) {
     </tr>
     
     <tr>
-      <td>user.update(
+      <td>user.update</td>
+      <td>(
         
         
           user,
@@ -56,7 +59,8 @@ promise.then(function (response) {
     </tr>
     
     <tr>
-      <td>user.partialUpdate(
+      <td>user.partialUpdate</td>
+      <td>(
         
         
           user,
@@ -68,7 +72,8 @@ promise.then(function (response) {
     </tr>
     
     <tr>
-      <td>user.getAvatar(
+      <td>user.getAvatar</td>
+      <td>(
         
           user_id,
         
@@ -80,7 +85,8 @@ promise.then(function (response) {
     </tr>
     
     <tr>
-      <td>user.updateAvatar(
+      <td>user.updateAvatar</td>
+      <td>(
         
         
           avatar,
@@ -92,7 +98,8 @@ promise.then(function (response) {
     </tr>
     
     <tr>
-      <td>user.getCover(
+      <td>user.getCover</td>
+      <td>(
         
           user_id,
         
@@ -104,7 +111,8 @@ promise.then(function (response) {
     </tr>
     
     <tr>
-      <td>user.updateCover(
+      <td>user.updateCover</td>
+      <td>(
         
         
           cover,
@@ -116,7 +124,8 @@ promise.then(function (response) {
     </tr>
     
     <tr>
-      <td>user.follow(
+      <td>user.follow</td>
+      <td>(
         
           user_id,
         
@@ -128,7 +137,8 @@ promise.then(function (response) {
     </tr>
     
     <tr>
-      <td>user.unfollow(
+      <td>user.unfollow</td>
+      <td>(
         
           user_id,
         
@@ -140,7 +150,8 @@ promise.then(function (response) {
     </tr>
     
     <tr>
-      <td>user.mute(
+      <td>user.mute</td>
+      <td>(
         
           user_id,
         
@@ -152,7 +163,8 @@ promise.then(function (response) {
     </tr>
     
     <tr>
-      <td>user.unmute(
+      <td>user.unmute</td>
+      <td>(
         
           user_id,
         
@@ -164,7 +176,8 @@ promise.then(function (response) {
     </tr>
     
     <tr>
-      <td>user.block(
+      <td>user.block</td>
+      <td>(
         
           user_id,
         
@@ -176,7 +189,8 @@ promise.then(function (response) {
     </tr>
     
     <tr>
-      <td>user.unblock(
+      <td>user.unblock</td>
+      <td>(
         
           user_id,
         
@@ -188,7 +202,8 @@ promise.then(function (response) {
     </tr>
     
     <tr>
-      <td>user.getList(
+      <td>user.getList</td>
+      <td>(
         
         
         
@@ -200,7 +215,8 @@ promise.then(function (response) {
     </tr>
     
     <tr>
-      <td>user.search(
+      <td>user.search</td>
+      <td>(
         
         
          args )</td>
@@ -210,7 +226,8 @@ promise.then(function (response) {
     </tr>
     
     <tr>
-      <td>user.getFollowing(
+      <td>user.getFollowing</td>
+      <td>(
         
           user_id,
         
@@ -222,7 +239,8 @@ promise.then(function (response) {
     </tr>
     
     <tr>
-      <td>user.getFollowers(
+      <td>user.getFollowers</td>
+      <td>(
         
           user_id,
         
@@ -234,7 +252,8 @@ promise.then(function (response) {
     </tr>
     
     <tr>
-      <td>user.getFollowingIds(
+      <td>user.getFollowingIds</td>
+      <td>(
         
           user_id,
         
@@ -246,7 +265,8 @@ promise.then(function (response) {
     </tr>
     
     <tr>
-      <td>user.getFollowerIds(
+      <td>user.getFollowerIds</td>
+      <td>(
         
           user_id,
         
@@ -258,7 +278,8 @@ promise.then(function (response) {
     </tr>
     
     <tr>
-      <td>user.getMuted(
+      <td>user.getMuted</td>
+      <td>(
         
           user_id,
         
@@ -270,7 +291,8 @@ promise.then(function (response) {
     </tr>
     
     <tr>
-      <td>user.getMutedList(
+      <td>user.getMutedList</td>
+      <td>(
         
         
         
@@ -282,7 +304,8 @@ promise.then(function (response) {
     </tr>
     
     <tr>
-      <td>user.getBlocked(
+      <td>user.getBlocked</td>
+      <td>(
         
           user_id,
         
@@ -294,7 +317,8 @@ promise.then(function (response) {
     </tr>
     
     <tr>
-      <td>user.getBlockedList(
+      <td>user.getBlockedList</td>
+      <td>(
         
         
         
@@ -306,7 +330,8 @@ promise.then(function (response) {
     </tr>
     
     <tr>
-      <td>user.getReposters(
+      <td>user.getReposters</td>
+      <td>(
         
           post_id,
         
@@ -318,7 +343,8 @@ promise.then(function (response) {
     </tr>
     
     <tr>
-      <td>user.getStars(
+      <td>user.getStars</td>
+      <td>(
         
           post_id,
         
@@ -330,7 +356,8 @@ promise.then(function (response) {
     </tr>
     
     <tr>
-      <td>post.create(
+      <td>post.create</td>
+      <td>(
         
         
           post,
@@ -342,7 +369,8 @@ promise.then(function (response) {
     </tr>
     
     <tr>
-      <td>post.get(
+      <td>post.get</td>
+      <td>(
         
           post_id,
         
@@ -354,7 +382,8 @@ promise.then(function (response) {
     </tr>
     
     <tr>
-      <td>post.destroy(
+      <td>post.destroy</td>
+      <td>(
         
           post_id,
         
@@ -366,7 +395,8 @@ promise.then(function (response) {
     </tr>
     
     <tr>
-      <td>post.repost(
+      <td>post.repost</td>
+      <td>(
         
           post_id,
         
@@ -378,7 +408,8 @@ promise.then(function (response) {
     </tr>
     
     <tr>
-      <td>post.unrepost(
+      <td>post.unrepost</td>
+      <td>(
         
           post_id,
         
@@ -390,7 +421,8 @@ promise.then(function (response) {
     </tr>
     
     <tr>
-      <td>post.star(
+      <td>post.star</td>
+      <td>(
         
           post_id,
         
@@ -402,7 +434,8 @@ promise.then(function (response) {
     </tr>
     
     <tr>
-      <td>post.unstar(
+      <td>post.unstar</td>
+      <td>(
         
           post_id,
         
@@ -414,7 +447,8 @@ promise.then(function (response) {
     </tr>
     
     <tr>
-      <td>post.getList(
+      <td>post.getList</td>
+      <td>(
         
         
         
@@ -426,7 +460,8 @@ promise.then(function (response) {
     </tr>
     
     <tr>
-      <td>post.getUserPosts(
+      <td>post.getUserPosts</td>
+      <td>(
         
           user_id,
         
@@ -438,7 +473,8 @@ promise.then(function (response) {
     </tr>
     
     <tr>
-      <td>post.getUserStarred(
+      <td>post.getUserStarred</td>
+      <td>(
         
           user_id,
         
@@ -450,7 +486,8 @@ promise.then(function (response) {
     </tr>
     
     <tr>
-      <td>post.getUserMentions(
+      <td>post.getUserMentions</td>
+      <td>(
         
           user_id,
         
@@ -462,7 +499,8 @@ promise.then(function (response) {
     </tr>
     
     <tr>
-      <td>post.getHashtag(
+      <td>post.getHashtag</td>
+      <td>(
         
           hashtag,
         
@@ -474,7 +512,8 @@ promise.then(function (response) {
     </tr>
     
     <tr>
-      <td>post.getThread(
+      <td>post.getThread</td>
+      <td>(
         
           post_id,
         
@@ -486,7 +525,8 @@ promise.then(function (response) {
     </tr>
     
     <tr>
-      <td>post.getUserStream(
+      <td>post.getUserStream</td>
+      <td>(
         
         
          args )</td>
@@ -496,7 +536,8 @@ promise.then(function (response) {
     </tr>
     
     <tr>
-      <td>stream.getUnifiedStream(
+      <td>stream.getUnifiedStream</td>
+      <td>(
         
         
          args )</td>
@@ -506,7 +547,8 @@ promise.then(function (response) {
     </tr>
     
     <tr>
-      <td>post.getGlobal(
+      <td>post.getGlobal</td>
+      <td>(
         
         
          args )</td>
@@ -516,7 +558,8 @@ promise.then(function (response) {
     </tr>
     
     <tr>
-      <td>post.report(
+      <td>post.report</td>
+      <td>(
         
           post_id,
         
@@ -528,7 +571,8 @@ promise.then(function (response) {
     </tr>
     
     <tr>
-      <td>channel.getUserSubscribed(
+      <td>channel.getUserSubscribed</td>
+      <td>(
         
         
          args )</td>
@@ -538,7 +582,8 @@ promise.then(function (response) {
     </tr>
     
     <tr>
-      <td>channel.create(
+      <td>channel.create</td>
+      <td>(
         
         
           channel,
@@ -550,7 +595,8 @@ promise.then(function (response) {
     </tr>
     
     <tr>
-      <td>channel.get(
+      <td>channel.get</td>
+      <td>(
         
           channel_id,
         
@@ -562,7 +608,8 @@ promise.then(function (response) {
     </tr>
     
     <tr>
-      <td>channel.getList(
+      <td>channel.getList</td>
+      <td>(
         
         
         
@@ -574,7 +621,8 @@ promise.then(function (response) {
     </tr>
     
     <tr>
-      <td>channel.getCreated(
+      <td>channel.getCreated</td>
+      <td>(
         
         
          args )</td>
@@ -584,7 +632,8 @@ promise.then(function (response) {
     </tr>
     
     <tr>
-      <td>channel.getUnreadCount(
+      <td>channel.getUnreadCount</td>
+      <td>(
         
         
          args )</td>
@@ -594,7 +643,8 @@ promise.then(function (response) {
     </tr>
     
     <tr>
-      <td>channel.update(
+      <td>channel.update</td>
+      <td>(
         
           channel_id,
         
@@ -608,7 +658,8 @@ promise.then(function (response) {
     </tr>
     
     <tr>
-      <td>channel.subscribe(
+      <td>channel.subscribe</td>
+      <td>(
         
           channel_id,
         
@@ -620,7 +671,8 @@ promise.then(function (response) {
     </tr>
     
     <tr>
-      <td>channel.unsubscribe(
+      <td>channel.unsubscribe</td>
+      <td>(
         
           channel_id,
         
@@ -632,7 +684,8 @@ promise.then(function (response) {
     </tr>
     
     <tr>
-      <td>channel.getSubscribers(
+      <td>channel.getSubscribers</td>
+      <td>(
         
           channel_id,
         
@@ -644,7 +697,8 @@ promise.then(function (response) {
     </tr>
     
     <tr>
-      <td>channel.getSubscriberIds(
+      <td>channel.getSubscriberIds</td>
+      <td>(
         
           channel_id,
         
@@ -656,7 +710,8 @@ promise.then(function (response) {
     </tr>
     
     <tr>
-      <td>channel.getSubscriberIdList(
+      <td>channel.getSubscriberIdList</td>
+      <td>(
         
         
         
@@ -668,7 +723,8 @@ promise.then(function (response) {
     </tr>
     
     <tr>
-      <td>channel.mute(
+      <td>channel.mute</td>
+      <td>(
         
           channel_id,
         
@@ -680,7 +736,8 @@ promise.then(function (response) {
     </tr>
     
     <tr>
-      <td>channel.unmute(
+      <td>channel.unmute</td>
+      <td>(
         
           channel_id,
         
@@ -692,7 +749,8 @@ promise.then(function (response) {
     </tr>
     
     <tr>
-      <td>channel.getMuted(
+      <td>channel.getMuted</td>
+      <td>(
         
         
          args )</td>
@@ -702,7 +760,8 @@ promise.then(function (response) {
     </tr>
     
     <tr>
-      <td>message.getChannelMessages(
+      <td>message.getChannelMessages</td>
+      <td>(
         
           channel_id,
         
@@ -714,7 +773,8 @@ promise.then(function (response) {
     </tr>
     
     <tr>
-      <td>message.create(
+      <td>message.create</td>
+      <td>(
         
           channel_id,
         
@@ -728,7 +788,8 @@ promise.then(function (response) {
     </tr>
     
     <tr>
-      <td>message.get(
+      <td>message.get</td>
+      <td>(
         
           channel_id,
         
@@ -742,7 +803,8 @@ promise.then(function (response) {
     </tr>
     
     <tr>
-      <td>message.getList(
+      <td>message.getList</td>
+      <td>(
         
         
         
@@ -754,7 +816,8 @@ promise.then(function (response) {
     </tr>
     
     <tr>
-      <td>message.getUserMessages(
+      <td>message.getUserMessages</td>
+      <td>(
         
         
          args )</td>
@@ -764,7 +827,8 @@ promise.then(function (response) {
     </tr>
     
     <tr>
-      <td>message.destroy(
+      <td>message.destroy</td>
+      <td>(
         
           channel_id,
         
@@ -778,7 +842,8 @@ promise.then(function (response) {
     </tr>
     
     <tr>
-      <td>file.create(
+      <td>file.create</td>
+      <td>(
         
         
           file,
@@ -790,7 +855,8 @@ promise.then(function (response) {
     </tr>
     
     <tr>
-      <td>file.createPlaceholder(
+      <td>file.createPlaceholder</td>
+      <td>(
         
         
           file,
@@ -802,7 +868,8 @@ promise.then(function (response) {
     </tr>
     
     <tr>
-      <td>file.get(
+      <td>file.get</td>
+      <td>(
         
           file_id,
         
@@ -814,7 +881,8 @@ promise.then(function (response) {
     </tr>
     
     <tr>
-      <td>file.getList(
+      <td>file.getList</td>
+      <td>(
         
         
         
@@ -826,7 +894,8 @@ promise.then(function (response) {
     </tr>
     
     <tr>
-      <td>file.destroy(
+      <td>file.destroy</td>
+      <td>(
         
           file_id,
         
@@ -838,7 +907,8 @@ promise.then(function (response) {
     </tr>
     
     <tr>
-      <td>file.getUserFiles(
+      <td>file.getUserFiles</td>
+      <td>(
         
         
          args )</td>
@@ -848,7 +918,8 @@ promise.then(function (response) {
     </tr>
     
     <tr>
-      <td>file.update(
+      <td>file.update</td>
+      <td>(
         
           file_id,
         
@@ -862,7 +933,8 @@ promise.then(function (response) {
     </tr>
     
     <tr>
-      <td>file.getContent(
+      <td>file.getContent</td>
+      <td>(
         
           file_id,
         
@@ -874,7 +946,8 @@ promise.then(function (response) {
     </tr>
     
     <tr>
-      <td>file.setContent(
+      <td>file.setContent</td>
+      <td>(
         
           file_id,
         
@@ -888,7 +961,8 @@ promise.then(function (response) {
     </tr>
     
     <tr>
-      <td>stream.create(
+      <td>stream.create</td>
+      <td>(
         
         
           stream,
@@ -900,7 +974,8 @@ promise.then(function (response) {
     </tr>
     
     <tr>
-      <td>stream.get(
+      <td>stream.get</td>
+      <td>(
         
           stream_id,
         
@@ -912,7 +987,8 @@ promise.then(function (response) {
     </tr>
     
     <tr>
-      <td>stream.update(
+      <td>stream.update</td>
+      <td>(
         
           stream_id,
         
@@ -926,7 +1002,8 @@ promise.then(function (response) {
     </tr>
     
     <tr>
-      <td>stream.destroy(
+      <td>stream.destroy</td>
+      <td>(
         
           stream_id,
         
@@ -938,7 +1015,8 @@ promise.then(function (response) {
     </tr>
     
     <tr>
-      <td>stream.getAll(
+      <td>stream.getAll</td>
+      <td>(
         
         
          args )</td>
@@ -948,7 +1026,8 @@ promise.then(function (response) {
     </tr>
     
     <tr>
-      <td>stream.destroyAll(
+      <td>stream.destroyAll</td>
+      <td>(
         
         
          args )</td>
@@ -958,7 +1037,8 @@ promise.then(function (response) {
     </tr>
     
     <tr>
-      <td>filter.create(
+      <td>filter.create</td>
+      <td>(
         
         
           filter,
@@ -970,7 +1050,8 @@ promise.then(function (response) {
     </tr>
     
     <tr>
-      <td>filter.get(
+      <td>filter.get</td>
+      <td>(
         
           filter_id,
         
@@ -982,7 +1063,8 @@ promise.then(function (response) {
     </tr>
     
     <tr>
-      <td>filter.update(
+      <td>filter.update</td>
+      <td>(
         
           filter_id,
         
@@ -996,7 +1078,8 @@ promise.then(function (response) {
     </tr>
     
     <tr>
-      <td>filter.destroy(
+      <td>filter.destroy</td>
+      <td>(
         
           filter_id,
         
@@ -1008,7 +1091,8 @@ promise.then(function (response) {
     </tr>
     
     <tr>
-      <td>filter.getUserFilters(
+      <td>filter.getUserFilters</td>
+      <td>(
         
         
          args )</td>
@@ -1018,7 +1102,8 @@ promise.then(function (response) {
     </tr>
     
     <tr>
-      <td>filter.destroyUserFilters(
+      <td>filter.destroyUserFilters</td>
+      <td>(
         
         
          args )</td>
@@ -1028,7 +1113,8 @@ promise.then(function (response) {
     </tr>
     
     <tr>
-      <td>interaction.get(
+      <td>interaction.get</td>
+      <td>(
         
         
          args )</td>
@@ -1038,7 +1124,8 @@ promise.then(function (response) {
     </tr>
     
     <tr>
-      <td>marker.update(
+      <td>marker.update</td>
+      <td>(
         
         
           marker,
@@ -1050,7 +1137,8 @@ promise.then(function (response) {
     </tr>
     
     <tr>
-      <td>text.process(
+      <td>text.process</td>
+      <td>(
         
         
           post_or_message,
@@ -1062,7 +1150,8 @@ promise.then(function (response) {
     </tr>
     
     <tr>
-      <td>token.get(
+      <td>token.get</td>
+      <td>(
         
         
          args )</td>
@@ -1072,7 +1161,8 @@ promise.then(function (response) {
     </tr>
     
     <tr>
-      <td>token.getAuthorizedIds(
+      <td>token.getAuthorizedIds</td>
+      <td>(
         
         
          args )</td>
@@ -1082,7 +1172,8 @@ promise.then(function (response) {
     </tr>
     
     <tr>
-      <td>token.getAuthorizedTokens(
+      <td>token.getAuthorizedTokens</td>
+      <td>(
         
         
          args )</td>
@@ -1092,7 +1183,8 @@ promise.then(function (response) {
     </tr>
     
     <tr>
-      <td>place.get(
+      <td>place.get</td>
+      <td>(
         
           place_id,
         
@@ -1104,7 +1196,8 @@ promise.then(function (response) {
     </tr>
     
     <tr>
-      <td>place.search(
+      <td>place.search</td>
+      <td>(
         
         
          args )</td>
@@ -1114,7 +1207,8 @@ promise.then(function (response) {
     </tr>
     
     <tr>
-      <td>explore.show(
+      <td>explore.show</td>
+      <td>(
         
         
          args )</td>
@@ -1124,7 +1218,8 @@ promise.then(function (response) {
     </tr>
     
     <tr>
-      <td>explore.get(
+      <td>explore.get</td>
+      <td>(
         
           slug,
         
