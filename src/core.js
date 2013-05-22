@@ -9,44 +9,6 @@
 (function ($) {
   'use strict';
 
-  var callSuccess = function (response)
-  {
-    if (response !== null &&
-	response.meta !== undefined &&
-	response.data !== undefined)
-    {
-      if (this.success)
-      {
-        this.success(response);
-      }
-    }
-    else
-    {
-      if (this.failure)
-      {
-//        console.log('AppNet null response');
-//        console.dir(response);
-        this.failure(response.meta);
-      }
-    }
-  };
-
-  var callFailure = function (request, status, thrown)
-  {
-//    console.log('AppNet call failed: ' + status + ', thrown: ' + thrown);
-//    console.dir(request.responseText);
-    var meta = null;
-    if (request.responseText) {
-      var response = JSON.parse(request.responseText);
-      if (response !== null) {
-        meta = response.meta;
-      }
-    }
-    if (this.failure) {
-      this.failure(meta);
-    }
-  };
-
   function makeArgs(args)
   {
     var result = '';
@@ -71,7 +33,7 @@
     return result;
   }
 
-  $.appnet().core.makeUrl = function (pieces)
+  $.appnet.core.makeUrl = function (pieces)
   {
     var result = '';
     var i = 0;
@@ -85,27 +47,28 @@
     return result;
   };
 
-  $.appnet().core.call = function (url, type, args, success, failure, data)
+  $.appnet.core.call = function (url, type, args, data)
   {
-    var complete = {
-      success: success,
-      failure: failure
-    };
     var options = {
       contentType: 'application/json',
       dataType: 'json',
       type: type,
       url: url + makeArgs(args)
     };
-    if (this.accessToken) {
-      options.headers = { Authorization: 'Bearer ' + this.accessToken };
+    var token = $.appnet.userToken;
+    if (! token)
+    {
+      token = $.appnet.appToken;
     }
-    if (data) {
+    if (token)
+    {
+      options.headers = { Authorization: 'Bearer ' + token };
+    }
+    if (data)
+    {
       options.data = makeData(data);
     }
-    var header = $.ajax(options);
-    header.done($.proxy(callSuccess, complete));
-    header.fail($.proxy(callFailure, complete));
+    return $.ajax(options);
   };
 
 }(jQuery));

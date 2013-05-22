@@ -1,0 +1,42 @@
+# appnet.js
+
+A library for interacting with app.net written in JavaScript. Exported
+as a jQuery module.
+
+# Example
+
+<pre>
+var promise = $.appnet().post.global({ include_annotations: 1 });
+</pre>
+
+# Reference
+
+<table>
+  <thead>
+    <tr>
+      <th width="320">Method</th>
+      <th width="410">Description</th>
+      <th width="60">Token</th>
+      <th width="60">scope</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each endpoints}}
+    <tr>
+      <td>{{group}}.{{name}}(
+        {{#each url_params}}
+          {{this}},
+        {{/each}}
+        {{#each data_params}}
+          {{this}},
+        {{/each}}
+        {{#each array_params}}
+          {{this}},
+        {{/each}} url_args)</td>
+      <td><a href="{{link}}">{{description}}</a></td>
+      <td>{{token}}</td>
+      <td>{{scope}}</td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>

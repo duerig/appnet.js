@@ -52,8 +52,6 @@
     return result;
   };
 
-  $.fn.appnet = function () {
-    return appnet;
-  };
+  $.appnet = appnet;
 
 }(jQuery));
