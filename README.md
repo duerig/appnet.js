@@ -11,7 +11,15 @@ API.
 
 ## Download
 
-The latest version can be obtained at:
+The current release is at:
+
+<ul>
+  <li><a href="https://raw.github.com/duerig/appnet.js/master/dist/release/appnet.1.js">Full Source</a></li>
+  <li><a href="https://raw.github.com/duerig/appnet.js/master/dist/release/appnet.1.min.js">Minified Source</a></li>
+</ul>
+
+
+The latest development version can be obtained at:
 
 <ul>
   <li><a href="https://raw.github.com/duerig/appnet.js/master/dist/appnet.js">Full Source</a></li>
