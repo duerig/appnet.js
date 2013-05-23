@@ -3,7 +3,22 @@
 A library for interacting with app.net written in JavaScript. Exported
 as a jQuery module.
 
-# Example
+Every method is invoked from the object returned by $.appnet(). At the
+top level are methods for setting the access token to be used for
+authentication. Aside from these utility functions, the remainder of
+the operations map one-to-one onto the HTTP endpoints of the app.net
+API.
+
+## Download
+
+The latest version can be obtained at:
+
+<ul>
+  <li><a href="https://raw.github.com/duerig/appnet.js/master/dist/appnet.js">Full Source</a></li>
+  <li><a href="https://raw.github.com/duerig/appnet.js/master/dist/appnet.min.js">Minified Source</a></li>
+</ul>
+
+## Example
 
 <pre>
 $.appnet().authorize("MY_USER_TOKEN");
@@ -18,7 +33,57 @@ promise.then(function (response) {
 });
 </pre>
 
-# Reference
+## Reference
+
+### Utility Functions
+
+<table>
+  <thead>
+    <tr>
+      <th width="200">Method</th>
+      <th width="240">Parameters</th>
+      <th width="350">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>authorize</td>
+      <td>( userToken, appToken )</td>
+      <td>Sets the user and/or app tokens. Required for various calls as noted below.</td>
+    </tr>
+    <tr>
+      <td>deauthorize</td>
+      <td>( )</td>
+      <td>Clears all tokens.</td>
+    </tr>
+    <tr>
+      <td>isLogged</td>
+      <td>( )</td>
+      <td>Returns true if either a user or an app token has been previously provided.</td>
+    </tr>
+    <tr>
+      <td>isApp</td>
+      <td>( )</td>
+      <td>Return true if an app token was previously provided.</td>
+    </tr>
+    <tr>
+      <td>isUser</td>
+      <td>( )</td>
+      <td>Returns true if a user token was previously provided.</td>
+    </tr>
+  </tbody>
+</table>
+
+### app.net endpoints
+
+These endpoints all return the result of invoking $.ajax() which is a
+jQuery promise. You are then free to attach your own callbacks to it
+etc. Typically the response you receive will be either a response
+envelope with a 'data' field containing the results of your operation
+on success and a 'meta' field with the response code and any other
+information associated with your query.
+
+File upload needs tested and may need a special case.
 
 <table>
   <thead>
