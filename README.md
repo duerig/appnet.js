@@ -3,7 +3,7 @@
 A library for interacting with app.net written in JavaScript. Exported
 as a jQuery module.
 
-Every method is invoked from the object returned by $.appnet(). At the
+Every method is invoked from the object found at $.appnet. At the
 top level are methods for setting the access token to be used for
 authentication. Aside from these utility functions, the remainder of
 the operations map one-to-one onto the HTTP endpoints of the app.net
@@ -29,11 +29,11 @@ The latest development version can be obtained at:
 ## Example
 
 <pre>
-$.appnet().authorize("MY_USER_TOKEN");
-var promise = $.appnet().post.getGlobal({ include_annotations: 1 });
+$.appnet.authorize("MY_USER_TOKEN");
+var promise = $.appnet.post.getGlobal({ include_annotations: 1 });
 promise.then(function (response) {
   console.dir(response);
-  return $.appnet().post.getThread('1000', { count: 10 });
+  return $.appnet.post.getThread('1000', { count: 10 });
 }).then(function (response) {
   console.dir(response);
 }, function (response) {
