@@ -1,5 +1,5 @@
 {
-    "format_version": 2,
+    "format_version": 3,
     "data_version": 3,
     "scopes": {
         "basic": "See basic information about this user",
@@ -28,6 +28,7 @@
         "place",
         "explore"
     ],
+    "migrations": [ ],
     "parameter_category": {
         "pagination":      [ "since_id", "before_id", "count" ],
         "general_user":    [ "include_annotations", "include_user_annotations", "include_html" ],
