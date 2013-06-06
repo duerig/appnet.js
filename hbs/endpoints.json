@@ -29,17 +29,17 @@
         "explore"
     ],
     "parameter_category": {
-	"pagination":      [ "since_id", "before_id", "count" ],
-    	"general_user":    [ "include_annotations", "include_user_annotations", "include_html" ],
-	"general_post":    [ "include_muted", "include_deleted", "include_directed_posts", "include_machine",
-			     "include_starred_by", "include_reposters", "include_annotations", "include_post_annotations",
-			     "include_user_annotations", "include_html" ],
-	"general_channel": [ "channel_type", "include_marker", "include_read", "include_recent_message", 
-			     "include_annotations", "include_user_annotations", "include_message_annotations" ]
-	"general_message": [ "include_muted", "include_deleted", "include_machine",
-			     "include_annotations", "include_user_annotations", "include_message_annotations", "include_html" ],
-	"general_file":    [ "file_types", "include_incomplete", "include_private",
-			     "include_annotations", "include_file_annotations", "include_user_annotations" ],
+        "pagination":      [ "since_id", "before_id", "count" ],
+        "general_user":    [ "include_annotations", "include_user_annotations", "include_html" ],
+        "general_post":    [ "include_muted", "include_deleted", "include_directed_posts", "include_machine",
+                             "include_starred_by", "include_reposters", "include_annotations", "include_post_annotations",
+                             "include_user_annotations", "include_html" ],
+        "general_channel": [ "channel_type", "include_marker", "include_read", "include_recent_message", 
+                             "include_annotations", "include_user_annotations", "include_message_annotations" ],
+        "general_message": [ "include_muted", "include_deleted", "include_machine",
+                             "include_annotations", "include_user_annotations", "include_message_annotations", "include_html" ],
+        "general_file":    [ "file_types", "include_incomplete", "include_private",
+                             "include_annotations", "include_file_annotations", "include_user_annotations" ],
 
         "user":            [ "name", "locale", "timezone", "description" ],
         "avatar":          "image",
@@ -47,21 +47,21 @@
         "post":            [ "text", "reply_to", "machine_only", "annotations", "entities" ],
         "channel":         [ "readers", "writers", "annotations", "type" ],
         "message":         [ "text", "reply_to", "annotations", "entities", "machine_only", "destinations" ],
-        "file":	           [ "text", "reply_to", "annotations", "entities", "machine_only" ],
+        "file":                   [ "text", "reply_to", "annotations", "entities", "machine_only" ],
         "content":         "content",
         "stream":          [ "object_types", "type", "filter_id", "key" ],
         "filter":          [ "name", "match_policy", "clauses"],
         "marker":          [ "id", "name", "percentage" ],
         "post_or_message": [ "text" ],
-	"placesearch":     [ "latitude", "longitude", "q", "radius", "count", "remove_closed",
-			     "altitude", "horizontal_accuracy", "vertical_accuracy" ],
+        "placesearch":     [ "latitude", "longitude", "q", "radius", "count", "remove_closed",
+                             "altitude", "horizontal_accuracy", "vertical_accuracy" ],
 
         "user_ids":    [ "ids" ],
         "post_ids":    [ "ids" ],
         "channel_ids": [ "ids" ],
         "message_ids": [ "ids" ],
-        "file_ids":    [ "ids" ],
-	]
+        "file_ids":    [ "ids" ]
+    },
     "base": "https://alpha-api.app.net/stream/0/",
     "endpoints": [
         {
