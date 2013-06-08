@@ -1809,6 +1809,13 @@
 (function ($) {
   'use strict';
 
+  function wait(time)
+  {
+    return $.Deferred(function (newDeferred) {
+      setTimeout($.bind(newDeferred.resolve, newDeferred), time);
+    }).promise();
+  }
+
   function makeArgs(args)
   {
     var result = '';
@@ -1868,7 +1875,27 @@
     {
       options.data = makeData(data);
     }
-    return $.ajax(options);
+    var promise = $.ajax(options);
+/*
+    // If we get a 429 busy response, we should retry once after
+    // waiting the requisite time.
+    promise.fail(function (response) {
+      if (response.statusCode() === 429)
+      {
+        var delaySec = parseInt(response.getRequestHeader('Retry-After'), 10);
+        var result = wait(delaySec * 1000);
+        result.then(function () {
+          return $.ajax(options);
+        });
+        return result;
+      }
+      else
+      {
+        throw response;
+      }
+    });
+*/
+    return promise;
   };
 
 }(jQuery));
@@ -1888,6 +1915,7 @@
   {
     addTypes(endpoints.stream_types);
     addEndpoints(endpoints.base, endpoints.endpoints);
+    addChained();
   }
 
   function addTypes(types)
@@ -1937,7 +1965,7 @@
       args.ids = vars.list.join(',');
     }
     $.extend(args, argsIn);
-    return $.appnet.core.call(url, vars.end.type, args, vars.data);
+    return $.appnet.core.call(url, vars.end.method, args, vars.data);
   }
 
   function addEndpoint(base, group, end)
@@ -2046,6 +2074,100 @@
     {
       console.log('Skipping ' + end.group + '.' + end.name);
     }
+  }
+
+  function addChained()
+  {
+    $.appnet.all = {};
+    addAll('getSubscriptions', $.appnet.subscription.get);
+    addAllOne('getMessages', $.appnet.message.getChannel);
+    addAllList('getChannelList', $.appnet.channel.getList);
+    addAllList('getUserList', $.appnet.user.getList);
+  }
+
+  function addAll(name, single)
+  {
+    $.appnet.all[name] = allFromSingle(single);
+  }
+
+  function addAllOne(name, single)
+  {
+    $.appnet.all[name] = function (target, args)
+    {
+      var callWithTarget = function (a) {
+        return single(target, a);
+      };
+      return allFromSingle(callWithTarget)(args);
+    };
+  }
+
+  function allFromSingle(single)
+  {
+    return function (args)
+    {
+      if (! args)
+      {
+        args = {};
+      }
+      args.count = 200;
+      var result = [];
+
+      function fetchMore(response)
+      {
+        result = result.concat(response.data);
+        if (response.meta.more)
+        {
+          args.before_id = response.meta.min_id;
+          var promise = single(args);
+          promise.then(fetchMore);
+          return promise;
+        }
+        else
+        {
+          return {
+            data: result,
+            meta: {
+              max_id: response.meta.max_id
+            }
+          };
+        }
+      }
+
+      var first = single(args);
+      first.then(fetchMore);
+      return first;
+    };
+  }
+
+  function addAllList(name, single)
+  {
+    $.appnet.all[name] = function (list, args)
+    {
+      var start = 0;
+      var end = start + (list.length < 200 ? list.length : 200);
+      var result = [];
+
+      function fetchMore(response)
+      {
+        result = result.concat(response.data);
+        start += 200;
+        end = start + (list.length < start + 200 ? list.length : 200);
+        if (start < list.length)
+        {
+          var promise = single(list.slice(start, end), args);
+          promise.then(fetchMore);
+          return promise;
+        }
+        else
+        {
+          return { data: result };
+        }
+      }
+
+      var first = single(list.slice(start, end), args);
+      first.then(fetchMore);
+      return first;
+    };
   }
 
   run($.appnet.endpoints);

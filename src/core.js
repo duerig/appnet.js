@@ -9,6 +9,13 @@
 (function ($) {
   'use strict';
 
+  function wait(time)
+  {
+    return $.Deferred(function (newDeferred) {
+      setTimeout($.bind(newDeferred.resolve, newDeferred), time);
+    }).promise();
+  }
+
   function makeArgs(args)
   {
     var result = '';
@@ -68,7 +75,27 @@
     {
       options.data = makeData(data);
     }
-    return $.ajax(options);
+    var promise = $.ajax(options);
+/*
+    // If we get a 429 busy response, we should retry once after
+    // waiting the requisite time.
+    promise.fail(function (response) {
+      if (response.statusCode() === 429)
+      {
+        var delaySec = parseInt(response.getRequestHeader('Retry-After'), 10);
+        var result = wait(delaySec * 1000);
+        result.then(function () {
+          return $.ajax(options);
+        });
+        return result;
+      }
+      else
+      {
+        throw response;
+      }
+    });
+*/
+    return promise;
   };
 
 }(jQuery));
