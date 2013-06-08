@@ -60,7 +60,7 @@
 (function ($) {
 'use strict';
   $.appnet.endpoints = {
-    "format_version": 2,
+    "format_version": 3,
     "data_version": 3,
     "scopes": {
         "basic": "See basic information about this user",
@@ -89,6 +89,41 @@
         "place",
         "explore"
     ],
+    "migrations": [ ],
+    "parameter_category": {
+        "pagination":      [ "since_id", "before_id", "count" ],
+        "general_user":    [ "include_annotations", "include_user_annotations", "include_html" ],
+        "general_post":    [ "include_muted", "include_deleted", "include_directed_posts", "include_machine",
+                             "include_starred_by", "include_reposters", "include_annotations", "include_post_annotations",
+                             "include_user_annotations", "include_html" ],
+        "general_channel": [ "channel_types", "include_marker", "include_read", "include_recent_message", 
+                             "include_annotations", "include_user_annotations", "include_message_annotations" ],
+        "general_message": [ "include_muted", "include_deleted", "include_machine",
+                             "include_annotations", "include_user_annotations", "include_message_annotations", "include_html" ],
+        "general_file":    [ "file_types", "include_incomplete", "include_private",
+                             "include_annotations", "include_file_annotations", "include_user_annotations" ],
+
+        "user":            [ "name", "locale", "timezone", "description" ],
+        "avatar":          "image",
+        "cover":           "image",
+        "post":            [ "text", "reply_to", "machine_only", "annotations", "entities" ],
+        "channel":         [ "readers", "writers", "annotations", "type" ],
+        "message":         [ "text", "reply_to", "annotations", "entities", "machine_only", "destinations" ],
+        "file":                   [ "text", "reply_to", "annotations", "entities", "machine_only" ],
+        "content":         "content",
+        "stream":          [ "object_types", "type", "filter_id", "key" ],
+        "filter":          [ "name", "match_policy", "clauses"],
+        "marker":          [ "id", "name", "percentage" ],
+        "post_or_message": [ "text" ],
+        "placesearch":     [ "latitude", "longitude", "q", "radius", "count", "remove_closed",
+                             "altitude", "horizontal_accuracy", "vertical_accuracy" ],
+
+        "user_ids":    [ "ids" ],
+        "post_ids":    [ "ids" ],
+        "channel_ids": [ "ids" ],
+        "message_ids": [ "ids" ],
+        "file_ids":    [ "ids" ]
+    },
     "base": "https://alpha-api.app.net/stream/0/",
     "endpoints": [
         {
@@ -100,6 +135,7 @@
             ],
             "data_params": [],
             "array_params": [],
+	    "get_params": [ "general_user" ],
             "method": "GET",
             "url": [
                 "users/"
@@ -118,6 +154,7 @@
                 "user"
             ],
             "array_params": [],
+	    "get_params": [ "general_user" ],
             "method": "PUT",
             "url": [
                 "users/me"
@@ -136,6 +173,7 @@
                 "user"
             ],
             "array_params": [],
+	    "get_params": [ "general_user" ],
             "method": "PATCH",
             "url": [
                 "users/me"
@@ -154,6 +192,7 @@
             ],
             "data_params": [],
             "array_params": [],
+	    "get_params": [ ],
             "method": "GET",
             "url": [
                 "users/",
@@ -173,6 +212,7 @@
                 "avatar"
             ],
             "array_params": [],
+	    "get_params": [ ],
             "method": "POST-RAW",
             "url": [
                 "users/me/avatar"
@@ -191,6 +231,7 @@
             ],
             "data_params": [],
             "array_params": [],
+	    "get_params": [ ],
             "method": "GET",
             "url": [
                 "users/",
@@ -210,6 +251,7 @@
                 "cover"
             ],
             "array_params": [],
+	    "get_params": [ ],
             "method": "POST-RAW",
             "url": [
                 "users/me/cover"
@@ -228,6 +270,7 @@
             ],
             "data_params": [],
             "array_params": [],
+	    "get_params": [ "general_user" ],
             "method": "POST",
             "url": [
                 "users/",
@@ -247,6 +290,7 @@
             ],
             "data_params": [],
             "array_params": [],
+	    "get_params": [ "general_user" ],
             "method": "DELETE",
             "url": [
                 "users/",
@@ -266,6 +310,7 @@
             ],
             "data_params": [],
             "array_params": [],
+	    "get_params": [ "general_user" ],
             "method": "POST",
             "url": [
                 "users/",
@@ -285,6 +330,7 @@
             ],
             "data_params": [],
             "array_params": [],
+	    "get_params": [ "general_user" ],
             "method": "DELETE",
             "url": [
                 "users/",
@@ -304,6 +350,7 @@
             ],
             "data_params": [],
             "array_params": [],
+	    "get_params": [ "general_user" ],
             "method": "POST",
             "url": [
                 "users/",
@@ -323,6 +370,7 @@
             ],
             "data_params": [],
             "array_params": [],
+	    "get_params": [ "general_user" ],
             "method": "DELETE",
             "url": [
                 "users/",
@@ -342,6 +390,7 @@
             "array_params": [
                 "user_ids"
             ],
+	    "get_params": [ "general_user" ],
             "method": "GET",
             "url": [
                 "users"
@@ -358,6 +407,7 @@
             "url_params": [],
             "data_params": [],
             "array_params": [],
+	    "get_params": [ "general_user" ],
             "method": "GET",
             "url": [
                 "users/search"
@@ -376,6 +426,7 @@
             ],
             "data_params": [],
             "array_params": [],
+	    "get_params": [ "general_user", "pagination" ],
             "method": "GET",
             "url": [
                 "users/",
@@ -395,6 +446,7 @@
             ],
             "data_params": [],
             "array_params": [],
+	    "get_params": [ "general_user", "pagination" ],
             "method": "GET",
             "url": [
                 "users/",
@@ -414,6 +466,7 @@
             ],
             "data_params": [],
             "array_params": [],
+	    "get_params": [ ],
             "method": "GET",
             "url": [
                 "users/",
@@ -433,6 +486,7 @@
             ],
             "data_params": [],
             "array_params": [],
+	    "get_params": [ ],
             "method": "GET",
             "url": [
                 "users/",
@@ -452,6 +506,7 @@
             ],
             "data_params": [],
             "array_params": [],
+	    "get_params": [ "general_user" ],
             "method": "GET",
             "url": [
                 "users/",
@@ -471,6 +526,7 @@
             "array_params": [
                 "user_ids"
             ],
+	    "get_params": [ ],
             "method": "GET",
             "url": [
                 "users/muted/ids"
@@ -489,6 +545,7 @@
             ],
             "data_params": [],
             "array_params": [],
+	    "get_params": [ "general_user" ],
             "method": "GET",
             "url": [
                 "users/",
@@ -508,6 +565,7 @@
             "array_params": [
                 "user_ids"
             ],
+	    "get_params": [ ],
             "method": "GET",
             "url": [
                 "users/blocked/ids"
@@ -526,6 +584,7 @@
             ],
             "data_params": [],
             "array_params": [],
+	    "get_params": [ "general_user" ],
             "method": "GET",
             "url": [
                 "posts/",
@@ -545,6 +604,7 @@
             ],
             "data_params": [],
             "array_params": [],
+	    "get_params": [ "general_user" ],
             "method": "GET",
             "url": [
                 "posts/",
@@ -564,6 +624,7 @@
                 "post"
             ],
             "array_params": [],
+	    "get_params": [ "general_post" ],
             "method": "POST",
             "url": [
                 "posts"
@@ -582,6 +643,7 @@
             ],
             "data_params": [],
             "array_params": [],
+	    "get_params": [ "general_post" ],
             "method": "GET",
             "url": [
                 "posts/"
@@ -600,6 +662,7 @@
             ],
             "data_params": [],
             "array_params": [],
+	    "get_params": [ "general_post" ],
             "method": "DELETE",
             "url": [
                 "posts/"
@@ -618,6 +681,7 @@
             ],
             "data_params": [],
             "array_params": [],
+	    "get_params": [ "general_post" ],
             "method": "POST",
             "url": [
                 "posts/",
@@ -637,6 +701,7 @@
             ],
             "data_params": [],
             "array_params": [],
+	    "get_params": [ "general_post" ],
             "method": "DELETE",
             "url": [
                 "posts/",
@@ -656,6 +721,7 @@
             ],
             "data_params": [],
             "array_params": [],
+	    "get_params": [ "general_post" ],
             "method": "POST",
             "url": [
                 "posts/",
@@ -675,6 +741,7 @@
             ],
             "data_params": [],
             "array_params": [],
+	    "get_params": [ "general_post" ],
             "method": "DELETE",
             "url": [
                 "posts/",
@@ -694,6 +761,7 @@
             "array_params": [
                 "post_ids"
             ],
+	    "get_params": [ "general_post" ],
             "method": "GET",
             "url": [
                 "posts"
@@ -706,12 +774,13 @@
         {
             "id": "208",
             "group": "post",
-            "name": "getUserPosts",
+            "name": "getUser",
             "url_params": [
                 "user_id"
             ],
             "data_params": [],
             "array_params": [],
+	    "get_params": [ "general_post", "pagination" ],
             "method": "GET",
             "url": [
                 "users/",
@@ -731,6 +800,7 @@
             ],
             "data_params": [],
             "array_params": [],
+	    "get_params": [ "general_post", "pagination" ],
             "method": "GET",
             "url": [
                 "users/",
@@ -750,6 +820,7 @@
             ],
             "data_params": [],
             "array_params": [],
+	    "get_params": [ "general_post", "pagination" ],
             "method": "GET",
             "url": [
                 "users/",
@@ -769,6 +840,7 @@
             ],
             "data_params": [],
             "array_params": [],
+	    "get_params": [ "general_post", "pagination" ],
             "method": "GET",
             "url": [
                 "posts/tag/"
@@ -787,6 +859,7 @@
             ],
             "data_params": [],
             "array_params": [],
+	    "get_params": [ "general_post", "pagination" ],
             "method": "GET",
             "url": [
                 "posts/",
@@ -804,6 +877,7 @@
             "url_params": [],
             "data_params": [],
             "array_params": [],
+	    "get_params": [ "general_post", "pagination" ],
             "method": "GET",
             "url": [
                 "posts/stream"
@@ -820,6 +894,7 @@
             "url_params": [],
             "data_params": [],
             "array_params": [],
+	    "get_params": [ "general_post", "pagination" ],
             "method": "GET",
             "url": [
                 "posts/stream/unified"
@@ -836,6 +911,7 @@
             "url_params": [],
             "data_params": [],
             "array_params": [],
+	    "get_params": [ "general_post", "pagination" ],
             "method": "GET",
             "url": [
                 "posts/stream/global"
@@ -854,6 +930,7 @@
             ],
             "data_params": [],
             "array_params": [],
+	    "get_params": [ "general_post" ],
             "method": "POST",
             "url": [
                 "posts/",
@@ -871,6 +948,7 @@
             "url_params": [],
             "data_params": [],
             "array_params": [],
+	    "get_params": [ "general_channel", "pagination" ],
             "method": "GET",
             "url": [
                 "channels"
@@ -889,6 +967,7 @@
                 "channel"
             ],
             "array_params": [],
+	    "get_params": [ "general_channel" ],
             "method": "POST",
             "url": [
                 "channels"
@@ -907,6 +986,7 @@
             ],
             "data_params": [],
             "array_params": [],
+	    "get_params": [ "general_channel" ],
             "method": "GET",
             "url": [
                 "channels/"
@@ -925,6 +1005,7 @@
             "array_params": [
                 "channel_ids"
             ],
+	    "get_params": [ "general_channel" ],
             "method": "GET",
             "url": [
                 "channels"
@@ -941,6 +1022,7 @@
             "url_params": [],
             "data_params": [],
             "array_params": [],
+	    "get_params": [ "general_channel", "pagination" ],
             "method": "GET",
             "url": [
                 "users/me/channels"
@@ -957,6 +1039,7 @@
             "url_params": [],
             "data_params": [],
             "array_params": [],
+	    "get_params": [ ],
             "method": "GET",
             "url": [
                 "users/me/channels/pm/num_unread"
@@ -977,6 +1060,7 @@
                 "channel"
             ],
             "array_params": [],
+	    "get_params": [ "general_channel" ],
             "method": "PUT",
             "url": [
                 "channels/"
@@ -995,6 +1079,7 @@
             ],
             "data_params": [],
             "array_params": [],
+	    "get_params": [ "general_channel" ],
             "method": "POST",
             "url": [
                 "channels/",
@@ -1014,6 +1099,7 @@
             ],
             "data_params": [],
             "array_params": [],
+	    "get_params": [ "general_channel" ],
             "method": "DELETE",
             "url": [
                 "channels/",
@@ -1033,6 +1119,7 @@
             ],
             "data_params": [],
             "array_params": [],
+	    "get_params": [ "general_channel", "pagination" ],
             "method": "GET",
             "url": [
                 "channels/",
@@ -1052,6 +1139,7 @@
             ],
             "data_params": [],
             "array_params": [],
+	    "get_params": [ ],
             "method": "GET",
             "url": [
                 "channels/",
@@ -1071,6 +1159,7 @@
             "array_params": [
                 "channel_ids"
             ],
+	    "get_params": [ ],
             "method": "GET",
             "url": [
                 "channels/subscribers/ids"
@@ -1089,6 +1178,7 @@
             ],
             "data_params": [],
             "array_params": [],
+	    "get_params": [ "general_channel" ],
             "method": "POST",
             "url": [
                 "channels/",
@@ -1108,6 +1198,7 @@
             ],
             "data_params": [],
             "array_params": [],
+	    "get_params": [ "general_channel" ],
             "method": "DELETE",
             "url": [
                 "channels/",
@@ -1125,6 +1216,7 @@
             "url_params": [],
             "data_params": [],
             "array_params": [],
+	    "get_params": [ "general_channel" ],
             "method": "GET",
             "url": [
                 "users/me/channels/muted"
@@ -1137,12 +1229,13 @@
         {
             "id": "400",
             "group": "message",
-            "name": "getChannelMessages",
+            "name": "getChannel",
             "url_params": [
                 "channel_id"
             ],
             "data_params": [],
             "array_params": [],
+	    "get_params": [ "general_message", "pagination" ],
             "method": "GET",
             "url": [
                 "channels/",
@@ -1164,6 +1257,7 @@
                 "message"
             ],
             "array_params": [],
+	    "get_params": [ "general_message" ],
             "method": "POST",
             "url": [
                 "channels/",
@@ -1184,6 +1278,7 @@
             ],
             "data_params": [],
             "array_params": [],
+	    "get_params": [ "general_message" ],
             "method": "GET",
             "url": [
                 "channels/",
@@ -1203,6 +1298,7 @@
             "array_params": [
                 "message_ids"
             ],
+	    "get_params": [ "general_message" ],
             "method": "GET",
             "url": [
                 "channels/messages"
@@ -1215,10 +1311,11 @@
         {
             "id": "404",
             "group": "message",
-            "name": "getUserMessages",
+            "name": "getUser",
             "url_params": [],
             "data_params": [],
             "array_params": [],
+	    "get_params": [ "general_message" ],
             "method": "GET",
             "url": [
                 "users/me/messages"
@@ -1238,6 +1335,7 @@
             ],
             "data_params": [],
             "array_params": [],
+	    "get_params": [ "general_message" ],
             "method": "DELETE",
             "url": [
                 "channels/",
@@ -1257,6 +1355,7 @@
                 "file"
             ],
             "array_params": [],
+	    "get_params": [ "general_file" ],
             "method": "POST-RAW",
             "url": [
                 "files"
@@ -1275,6 +1374,7 @@
                 "file"
             ],
             "array_params": [],
+	    "get_params": [ "general_file" ],
             "method": "POST",
             "url": [
                 "files"
@@ -1293,6 +1393,7 @@
             ],
             "data_params": [],
             "array_params": [],
+	    "get_params": [ "general_file" ],
             "method": "GET",
             "url": [
                 "files/"
@@ -1311,6 +1412,7 @@
             "array_params": [
                 "file_ids"
             ],
+	    "get_params": [ "general_file" ],
             "method": "GET",
             "url": [
                 "files"
@@ -1329,6 +1431,7 @@
             ],
             "data_params": [],
             "array_params": [],
+	    "get_params": [ "general_file" ],
             "method": "DELETE",
             "url": [
                 "files/"
@@ -1341,10 +1444,11 @@
         {
             "id": "505",
             "group": "file",
-            "name": "getUserFiles",
+            "name": "getUser",
             "url_params": [],
             "data_params": [],
             "array_params": [],
+	    "get_params": [ "general_file", "pagination" ],
             "method": "GET",
             "url": [
                 "users/me/files"
@@ -1365,6 +1469,7 @@
                 "file"
             ],
             "array_params": [],
+	    "get_params": [ "general_file" ],
             "method": "PUT",
             "url": [
                 "files/"
@@ -1383,6 +1488,7 @@
             ],
             "data_params": [],
             "array_params": [],
+	    "get_params": [  ],
             "method": "GET",
             "url": [
                 "files/",
@@ -1404,6 +1510,7 @@
                 "content"
             ],
             "array_params": [],
+	    "get_params": [ ],
             "method": "PUT",
             "url": [
                 "files/",
@@ -1423,6 +1530,7 @@
                 "stream"
             ],
             "array_params": [],
+	    "get_params": [],
             "method": "POST",
             "url": [
                 "streams"
@@ -1441,6 +1549,7 @@
             ],
             "data_params": [],
             "array_params": [],
+	    "get_params": [],
             "method": "GET",
             "url": [
                 "streams/"
@@ -1461,6 +1570,7 @@
                 "stream"
             ],
             "array_params": [],
+	    "get_params": [],
             "method": "PUT",
             "url": [
                 "streams/"
@@ -1479,6 +1589,7 @@
             ],
             "data_params": [],
             "array_params": [],
+	    "get_params": [],
             "method": "DELETE",
             "url": [
                 "streams/"
@@ -1495,6 +1606,7 @@
             "url_params": [],
             "data_params": [],
             "array_params": [],
+	    "get_params": [],
             "method": "GET",
             "url": [
                 "streams"
@@ -1511,6 +1623,7 @@
             "url_params": [],
             "data_params": [],
             "array_params": [],
+	    "get_params": [],
             "method": "DELETE",
             "url": [
                 "streams"
@@ -1529,6 +1642,7 @@
                 "filter"
             ],
             "array_params": [],
+	    "get_params": [],
             "method": "POST",
             "url": [
                 "filters"
@@ -1547,6 +1661,7 @@
             ],
             "data_params": [],
             "array_params": [],
+	    "get_params": [],
             "method": "GET",
             "url": [
                 "filters/"
@@ -1567,6 +1682,7 @@
                 "filter"
             ],
             "array_params": [],
+	    "get_params": [],
             "method": "PUT",
             "url": [
                 "filters/"
@@ -1585,6 +1701,7 @@
             ],
             "data_params": [],
             "array_params": [],
+	    "get_params": [],
             "method": "DELETE",
             "url": [
                 "filters/"
@@ -1597,10 +1714,11 @@
         {
             "id": "704",
             "group": "filter",
-            "name": "getUserFilters",
+            "name": "getUser",
             "url_params": [],
             "data_params": [],
             "array_params": [],
+	    "get_params": [],
             "method": "GET",
             "url": [
                 "filters"
@@ -1613,10 +1731,11 @@
         {
             "id": "705",
             "group": "filter",
-            "name": "destroyUserFilters",
+            "name": "destroyUser",
             "url_params": [],
             "data_params": [],
             "array_params": [],
+	    "get_params": [],
             "method": "DELETE",
             "url": [
                 "filters"
@@ -1633,6 +1752,7 @@
             "url_params": [],
             "data_params": [],
             "array_params": [],
+	    "get_params": [ "pagination" ],
             "method": "GET",
             "url": [
                 "users/me/interactions"
@@ -1651,6 +1771,7 @@
                 "marker"
             ],
             "array_params": [],
+	    "get_params": [ ],
             "method": "POST",
             "url": [
                 "posts/marker"
@@ -1669,6 +1790,7 @@
                 "post_or_message"
             ],
             "array_params": [],
+	    "get_params": [ ],
             "method": "POST",
             "url": [
                 "text/process"
@@ -1685,6 +1807,7 @@
             "url_params": [],
             "data_params": [],
             "array_params": [],
+	    "get_params": [ ],
             "method": "GET",
             "url": [
                 "token"
@@ -1701,6 +1824,7 @@
             "url_params": [],
             "data_params": [],
             "array_params": [],
+	    "get_params": [ ],
             "method": "GET",
             "url": [
                 "tokens/user_ids"
@@ -1713,10 +1837,11 @@
         {
             "id": "1102",
             "group": "token",
-            "name": "getAuthorizedTokens",
+            "name": "getAuthorized",
             "url_params": [],
             "data_params": [],
             "array_params": [],
+	    "get_params": [ ],
             "method": "GET",
             "url": [
                 "apps/me/token"
@@ -1731,10 +1856,11 @@
             "group": "place",
             "name": "get",
             "url_params": [
-                "place_id"
+                "factual_id"
             ],
             "data_params": [],
             "array_params": [],
+	    "get_params": [ ],
             "method": "GET",
             "url": [
                 "places/"
@@ -1751,6 +1877,7 @@
             "url_params": [],
             "data_params": [],
             "array_params": [],
+	    "get_params": [ "placesearch" ],
             "method": "GET",
             "url": [
                 "places/search"
@@ -1767,6 +1894,7 @@
             "url_params": [],
             "data_params": [],
             "array_params": [],
+	    "get_params": [ ],
             "method": "GET",
             "url": [
                 "posts/stream/explore"
@@ -1785,6 +1913,7 @@
             ],
             "data_params": [],
             "array_params": [],
+	    "get_params": [ "pagination" ],
             "method": "GET",
             "url": [
                 "stream/explore/"
@@ -1915,7 +2044,7 @@
   {
     addTypes(endpoints.stream_types);
     addEndpoints(endpoints.base, endpoints.endpoints);
-    addChained();
+//    addChained();
   }
 
   function addTypes(types)

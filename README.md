@@ -499,7 +499,7 @@ File upload needs tested and may need a special case.
     </tr>
     
     <tr>
-      <td>post.getUserPosts</td>
+      <td>post.getUser</td>
       <td>(
         
           user_id,
@@ -775,7 +775,7 @@ File upload needs tested and may need a special case.
     </tr>
     
     <tr>
-      <td>message.getChannelMessages</td>
+      <td>message.getChannel</td>
       <td>(
         
           channel_id,
@@ -827,7 +827,7 @@ File upload needs tested and may need a special case.
     </tr>
     
     <tr>
-      <td>message.getUserMessages</td>
+      <td>message.getUser</td>
       <td>(
         
         
@@ -911,7 +911,7 @@ File upload needs tested and may need a special case.
     </tr>
     
     <tr>
-      <td>file.getUserFiles</td>
+      <td>file.getUser</td>
       <td>(
         
         
@@ -1081,7 +1081,7 @@ File upload needs tested and may need a special case.
     </tr>
     
     <tr>
-      <td>filter.getUserFilters</td>
+      <td>filter.getUser</td>
       <td>(
         
         
@@ -1091,7 +1091,7 @@ File upload needs tested and may need a special case.
     </tr>
     
     <tr>
-      <td>filter.destroyUserFilters</td>
+      <td>filter.destroyUser</td>
       <td>(
         
         
@@ -1155,7 +1155,7 @@ File upload needs tested and may need a special case.
     </tr>
     
     <tr>
-      <td>token.getAuthorizedTokens</td>
+      <td>token.getAuthorized</td>
       <td>(
         
         
@@ -1168,7 +1168,7 @@ File upload needs tested and may need a special case.
       <td>place.get</td>
       <td>(
         
-          place_id,
+          factual_id,
         
         
          args )</td>

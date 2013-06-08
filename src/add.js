@@ -13,7 +13,7 @@
   {
     addTypes(endpoints.stream_types);
     addEndpoints(endpoints.base, endpoints.endpoints);
-    addChained();
+//    addChained();
   }
 
   function addTypes(types)
