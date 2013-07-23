@@ -14,8 +14,8 @@ API.
 The current release is at:
 
 <ul>
-  <li><a href="https://raw.github.com/duerig/appnet.js/master/dist/release/appnet.1.js">Full Source</a></li>
-  <li><a href="https://raw.github.com/duerig/appnet.js/master/dist/release/appnet.1.min.js">Minified Source</a></li>
+  <li><a href="https://raw.github.com/duerig/appnet.js/master/dist/release/appnet.2.js">Full Source</a></li>
+  <li><a href="https://raw.github.com/duerig/appnet.js/master/dist/release/appnet.2.min.js">Minified Source</a></li>
 </ul>
 
 
@@ -569,7 +569,7 @@ File upload needs tested and may need a special case.
     </tr>
     
     <tr>
-      <td>stream.getUnifiedStream</td>
+      <td>post.getUnifiedStream</td>
       <td>(
         
         
@@ -961,7 +961,7 @@ File upload needs tested and may need a special case.
     </tr>
     
     <tr>
-      <td>stream.create</td>
+      <td>AppStream.create</td>
       <td>(
         
         
@@ -973,7 +973,7 @@ File upload needs tested and may need a special case.
     </tr>
     
     <tr>
-      <td>stream.get</td>
+      <td>AppStream.get</td>
       <td>(
         
           stream_id,
@@ -985,7 +985,7 @@ File upload needs tested and may need a special case.
     </tr>
     
     <tr>
-      <td>stream.update</td>
+      <td>AppStream.update</td>
       <td>(
         
           stream_id,
@@ -999,7 +999,7 @@ File upload needs tested and may need a special case.
     </tr>
     
     <tr>
-      <td>stream.destroy</td>
+      <td>AppStream.destroy</td>
       <td>(
         
           stream_id,
@@ -1011,7 +1011,7 @@ File upload needs tested and may need a special case.
     </tr>
     
     <tr>
-      <td>stream.getAll</td>
+      <td>AppStream.getAll</td>
       <td>(
         
         
@@ -1021,13 +1021,39 @@ File upload needs tested and may need a special case.
     </tr>
     
     <tr>
-      <td>stream.destroyAll</td>
+      <td>AppStream.destroyAll</td>
       <td>(
         
         
          args )</td>
       <td><a href="http://developers.app.net/docs/resources/stream/lifecycle/#delete-all-of-the-current-users-streams">Delete all Streams for the current Token</a></td>
       <td>App</td>
+    </tr>
+    
+    <tr>
+      <td>UserStream.destroy</td>
+      <td>(
+        
+          connection_id,
+        
+        
+         args )</td>
+      <td><a href="http://developers.app.net/docs/resources/user-stream/lifecycle/#delete-a-user-stream">Delete a User Stream</a></td>
+      <td>user</td>
+    </tr>
+    
+    <tr>
+      <td>UserStream.destroySubscription</td>
+      <td>(
+        
+          connection_id,
+        
+          subscription_id,
+        
+        
+         args )</td>
+      <td><a href="http://developers.app.net/docs/resources/user-stream/lifecycle/#delete-a-user-stream-subscription">Delete a User Stream Subscription</a></td>
+      <td>user</td>
     </tr>
     
     <tr>
