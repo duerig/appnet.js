@@ -2044,7 +2044,7 @@
   {
     addTypes(endpoints.stream_types);
     addEndpoints(endpoints.base, endpoints.endpoints);
-//    addChained();
+    addChained();
   }
 
   function addTypes(types)
@@ -2208,7 +2208,7 @@
   function addChained()
   {
     $.appnet.all = {};
-    addAll('getSubscriptions', $.appnet.subscription.get);
+    addAll('getSubscriptions', $.appnet.channel.getUserSubscribed);
     addAllOne('getMessages', $.appnet.message.getChannel);
     addAllList('getChannelList', $.appnet.channel.getList);
     addAllList('getUserList', $.appnet.user.getList);
