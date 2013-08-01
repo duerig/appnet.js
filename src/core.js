@@ -8,12 +8,18 @@
 /*global jQuery: true */
 (function ($) {
   'use strict';
-
   function wait(time)
   {
-    return $.Deferred(function (newDeferred) {
-      setTimeout($.bind(newDeferred.resolve, newDeferred), time);
-    }).promise();
+    if ($.wait === undefined)
+    {
+      return $.Deferred(function (newDeferred) {
+        setTimeout($.bind(newDeferred.resolve, newDeferred), time);
+      }).promise();
+    }
+    else
+    {
+      return $.wait(time);
+    }
   }
 
   function makeArgs(args)
@@ -76,7 +82,6 @@
       options.data = makeData(data);
     }
     var promise = $.ajax(options);
-/*
     // If we get a 429 busy response, we should retry once after
     // waiting the requisite time.
     promise.fail(function (response) {
@@ -94,7 +99,6 @@
         throw response;
       }
     });
-*/
     return promise;
   };
 

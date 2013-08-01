@@ -179,6 +179,7 @@
     $.appnet.all = {};
     addAll('getSubscriptions', $.appnet.channel.getUserSubscribed);
     addAllOne('getMessages', $.appnet.message.getChannel);
+    addAllOne('getFollowing', $.appnet.user.getFollowing);
     addAllList('getChannelList', $.appnet.channel.getList);
     addAllList('getUserList', $.appnet.user.getList);
   }

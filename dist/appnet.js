@@ -5,7 +5,80 @@
  *
  */
 
-/*global jQuery: true */
+/*global jQuery: true, require: true, module: true, exports: true */
+if (typeof exports !== 'undefined')
+{
+  jQuery = {};
+
+  jQuery.param = function (object)
+  {
+    'use strict';
+    // Query String able to use escaping
+    var query = require('querystring');
+
+    var result = '',
+        key = '',
+        postfix = '&';
+
+    var i;
+    for (i in object)
+    {
+      // If not prefix like a[one]...
+//      if (! prefix)
+//      {
+      key = query.escape(i);
+//      }
+//      else
+//      {
+//        key = prefix + '[' + query.escape(i) + ']';
+//      }
+
+      // String pass as is...
+      if (typeof(object[i]) === 'string')
+      {
+        result += key + '=' + query.escape(object[i]) + postfix;
+        continue;
+      }
+
+      // objectects and arrays pass depper
+/*
+      if (typeof(object[i]) === 'object' || typeof(object[i]) === 'array')
+      {
+        result += toURL(object[i], key) + postfix;
+        continue;
+      }
+*/
+      // Other passed stringified
+      if (object[i].toString)
+      {
+        result += key + '=' + query.escape(object[i].toString()) + postfix;
+        continue;
+      }
+    }
+    // Delete trailing delimiter (&) Yep it's pretty durty way but
+    // there was an error gettin length of the objectect;
+    result = result.substr(0, result.length - 1);
+    return result;
+  };
+
+  jQuery.ajax = function (options)
+  {
+    'use strict';
+    var http = require('q-io/http');
+    var request = {
+      url: options.url,
+      method: options.type,
+      headers: options.headers,
+      body: options.data
+    };
+    return http.read(http.normalizeRequest(request));
+  };
+
+  jQuery.extend = require('xtend');
+
+  jQuery.wait = require('q').delay;
+}
+
 (function ($) {
   'use strict';
   var appnet = {
@@ -56,6 +129,11 @@
 
 }(jQuery));
 
+if (typeof module !== 'undefined')
+{
+  module.exports = jQuery.appnet;
+}
+
 /*global jQuery: true */
 (function ($) {
 'use strict';
@@ -80,7 +158,8 @@
         "channel",
         "message",
         "file",
-        "stream",
+        "AppStream",
+        "UserStream",
         "filter",
         "interaction",
         "marker",
@@ -1982,12 +2061,18 @@
 /*global jQuery: true */
 (function ($) {
   'use strict';
-
   function wait(time)
   {
-    return $.Deferred(function (newDeferred) {
-      setTimeout($.bind(newDeferred.resolve, newDeferred), time);
-    }).promise();
+    if ($.wait === undefined)
+    {
+      return $.Deferred(function (newDeferred) {
+        setTimeout($.bind(newDeferred.resolve, newDeferred), time);
+      }).promise();
+    }
+    else
+    {
+      return $.wait(time);
+    }
   }
 
   function makeArgs(args)
@@ -2050,7 +2135,6 @@
       options.data = makeData(data);
     }
     var promise = $.ajax(options);
-/*
     // If we get a 429 busy response, we should retry once after
     // waiting the requisite time.
     promise.fail(function (response) {
@@ -2068,7 +2152,6 @@
         throw response;
       }
     });
-*/
     return promise;
   };
 
@@ -2255,6 +2338,7 @@
     $.appnet.all = {};
     addAll('getSubscriptions', $.appnet.channel.getUserSubscribed);
     addAllOne('getMessages', $.appnet.message.getChannel);
+    addAllOne('getFollowing', $.appnet.user.getFollowing);
     addAllList('getChannelList', $.appnet.channel.getList);
     addAllList('getUserList', $.appnet.user.getList);
   }

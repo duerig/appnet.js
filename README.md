@@ -1,7 +1,7 @@
 # appnet.js
 
 A library for interacting with app.net written in JavaScript. Exported
-as a jQuery module.
+as both a jQuery and a Node.js module.
 
 Every method is invoked from the object found at $.appnet. At the
 top level are methods for setting the access token to be used for
@@ -11,7 +11,7 @@ API.
 
 ## Download
 
-The current release is at:
+When using this package with jQuery, the current release can be found at:
 
 <ul>
   <li><a href="https://raw.github.com/duerig/appnet.js/master/dist/release/appnet.2.js">Full Source</a></li>
@@ -25,6 +25,12 @@ The latest development version can be obtained at:
   <li><a href="https://raw.github.com/duerig/appnet.js/master/dist/appnet.js">Full Source</a></li>
   <li><a href="https://raw.github.com/duerig/appnet.js/master/dist/appnet.min.js">Minified Source</a></li>
 </ul>
+
+If you wish to use this as a Node.js module, install it using npm:
+
+<pre>
+npm install appnet
+</pre>
 
 ## Example
 
