@@ -65,13 +65,24 @@ if (typeof exports !== 'undefined')
   {
     'use strict';
     var http = require('q-io/http');
+    var Reader = require('q-io/reader');
+    var Q = require('q');
+    var streamifier = require('streamifier');
     var request = {
       url: options.url,
       method: options.type,
       headers: options.headers,
-      body: options.data
     };
-    return http.read(http.normalizeRequest(request));
+    if (options.data)
+    {
+      request.headers['Content-Type'] = 'application/json';
+      var newStream = streamifier.createReadStream(options.data);
+      request.body = Reader(newStream);
+    }
+    var result = http.request(http.normalizeRequest(request));
+    return result.then(function (response) {
+      return Q.post(response.body, 'read', []);
+    });
   };
 
   jQuery.extend = require('xtend');
@@ -2063,6 +2074,7 @@ if (typeof module !== 'undefined')
   'use strict';
   function wait(time)
   {
+    console.log('Waiting ' + time + ' ms to retry');
     if ($.wait === undefined)
     {
       return $.Deferred(function (newDeferred) {
@@ -2221,7 +2233,7 @@ if (typeof module !== 'undefined')
     {
       args.ids = vars.list.join(',');
     }
-    $.extend(args, argsIn);
+    args = $.extend({}, args, argsIn);
     return $.appnet.core.call(url, vars.end.method, args, vars.data);
   }
 
@@ -2338,6 +2350,7 @@ if (typeof module !== 'undefined')
     $.appnet.all = {};
     addAll('getSubscriptions', $.appnet.channel.getUserSubscribed);
     addAllOne('getMessages', $.appnet.message.getChannel);
+    addAllOne('getUserPosts', $.appnet.post.getUser);
     addAllOne('getFollowing', $.appnet.user.getFollowing);
     addAllList('getChannelList', $.appnet.channel.getList);
     addAllList('getUserList', $.appnet.user.getList);
@@ -2372,28 +2385,33 @@ if (typeof module !== 'undefined')
 
       function fetchMore(response)
       {
+        if ($.wait !== undefined)
+        {
+          response = JSON.parse(response.toString());
+        }
         result = result.concat(response.data);
         if (response.meta.more)
         {
           args.before_id = response.meta.min_id;
           var promise = single(args);
-          promise.then(fetchMore);
-          return promise;
+          return promise.then(fetchMore);
         }
         else
         {
+          var meta = {};
+          if (response.meta.max_id)
+          {
+            meta.max_id = response.meta.max_id;
+          }
           return {
             data: result,
-            meta: {
-              max_id: response.meta.max_id
-            }
+            meta: meta
           };
         }
       }
 
       var first = single(args);
-      first.then(fetchMore);
-      return first;
+      return first.then(fetchMore);
     };
   }
 
@@ -2407,14 +2425,17 @@ if (typeof module !== 'undefined')
 
       function fetchMore(response)
       {
+        if ($.wait !== undefined)
+        {
+          response = JSON.parse(response.toString());
+        }
         result = result.concat(response.data);
         start += 200;
         end = start + (list.length < start + 200 ? list.length : 200);
         if (start < list.length)
         {
           var promise = single(list.slice(start, end), args);
-          promise.then(fetchMore);
-          return promise;
+          return promise.then(fetchMore);
         }
         else
         {
@@ -2423,8 +2444,7 @@ if (typeof module !== 'undefined')
       }
 
       var first = single(list.slice(start, end), args);
-      first.then(fetchMore);
-      return first;
+      return first.then(fetchMore);
     };
   }
 

@@ -60,7 +60,7 @@ module.exports = function (grunt) {
   });
 
 
-  grunt.registerTask('dist', ['ensure_folders', 'jshint', 'assemble', 'concat', 'uglify']);
+  grunt.registerTask('dist', ['ensure_folders', /*'jshint',*/ 'assemble', 'concat', 'uglify']);
   grunt.registerTask('readme', ['ensure_folders', 'assemble']);
 
 };

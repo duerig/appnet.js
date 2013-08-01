@@ -10,6 +10,7 @@
   'use strict';
   function wait(time)
   {
+    console.log('Waiting ' + time + ' ms to retry');
     if ($.wait === undefined)
     {
       return $.Deferred(function (newDeferred) {

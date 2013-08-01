@@ -65,13 +65,24 @@ if (typeof exports !== 'undefined')
   {
     'use strict';
     var http = require('q-io/http');
+    var Reader = require('q-io/reader');
+    var Q = require('q');
+    var streamifier = require('streamifier');
     var request = {
       url: options.url,
       method: options.type,
       headers: options.headers,
-      body: options.data
     };
-    return http.read(http.normalizeRequest(request));
+    if (options.data)
+    {
+      request.headers['Content-Type'] = 'application/json';
+      var newStream = streamifier.createReadStream(options.data);
+      request.body = Reader(newStream);
+    }
+    var result = http.request(http.normalizeRequest(request));
+    return result.then(function (response) {
+      return Q.post(response.body, 'read', []);
+    });
   };
 
   jQuery.extend = require('xtend');

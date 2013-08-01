@@ -62,7 +62,7 @@
     {
       args.ids = vars.list.join(',');
     }
-    $.extend(args, argsIn);
+    args = $.extend({}, args, argsIn);
     return $.appnet.core.call(url, vars.end.method, args, vars.data);
   }
 
@@ -179,6 +179,7 @@
     $.appnet.all = {};
     addAll('getSubscriptions', $.appnet.channel.getUserSubscribed);
     addAllOne('getMessages', $.appnet.message.getChannel);
+    addAllOne('getUserPosts', $.appnet.post.getUser);
     addAllOne('getFollowing', $.appnet.user.getFollowing);
     addAllList('getChannelList', $.appnet.channel.getList);
     addAllList('getUserList', $.appnet.user.getList);
@@ -213,28 +214,33 @@
 
       function fetchMore(response)
       {
+        if ($.wait !== undefined)
+        {
+          response = JSON.parse(response.toString());
+        }
         result = result.concat(response.data);
         if (response.meta.more)
         {
           args.before_id = response.meta.min_id;
           var promise = single(args);
-          promise.then(fetchMore);
-          return promise;
+          return promise.then(fetchMore);
         }
         else
         {
+          var meta = {};
+          if (response.meta.max_id)
+          {
+            meta.max_id = response.meta.max_id;
+          }
           return {
             data: result,
-            meta: {
-              max_id: response.meta.max_id
-            }
+            meta: meta
           };
         }
       }
 
       var first = single(args);
-      first.then(fetchMore);
-      return first;
+      return first.then(fetchMore);
     };
   }
 
@@ -248,14 +254,17 @@
 
       function fetchMore(response)
       {
+        if ($.wait !== undefined)
+        {
+          response = JSON.parse(response.toString());
+        }
         result = result.concat(response.data);
         start += 200;
         end = start + (list.length < start + 200 ? list.length : 200);
         if (start < list.length)
         {
           var promise = single(list.slice(start, end), args);
-          promise.then(fetchMore);
-          return promise;
+          return promise.then(fetchMore);
         }
         else
         {
@@ -264,8 +273,7 @@
       }
 
       var first = single(list.slice(start, end), args);
-      first.then(fetchMore);
-      return first;
+      return first.then(fetchMore);
     };
   }
 
