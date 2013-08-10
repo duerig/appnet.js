@@ -3,19 +3,22 @@
 A library for interacting with app.net written in JavaScript. Exported
 as both a jQuery and a Node.js module.
 
-Every method is invoked from the object found at $.appnet. At the
-top level are methods for setting the access token to be used for
-authentication. Aside from these utility functions, the remainder of
-the operations map one-to-one onto the HTTP endpoints of the app.net
-API.
+In jQuery, every method is invoked from the object found at
+$.appnet. Using Node.js, that object is the sole export. See the
+examples below.
+
+Most function map one-to-one onto the HTTP endpoints of the app.net
+API. The exceptions are a few utility functions at the top level for
+setting and checking authorization tokens, and the all.* functions
+which are a convenient way to get an entire stream.
 
 ## Download
 
 When using this package with jQuery, the current release can be found at:
 
 <ul>
-  <li><a href="https://raw.github.com/duerig/appnet.js/master/dist/release/appnet.2.js">Full Source</a></li>
-  <li><a href="https://raw.github.com/duerig/appnet.js/master/dist/release/appnet.2.min.js">Minified Source</a></li>
+  <li><a href="https://raw.github.com/duerig/appnet.js/master/dist/release/appnet.3.js">Full Source</a></li>
+  <li><a href="https://raw.github.com/duerig/appnet.js/master/dist/release/appnet.3.min.js">Minified Source</a></li>
 </ul>
 
 
@@ -32,19 +35,48 @@ If you wish to use this as a Node.js module, install it using npm:
 npm install appnet
 </pre>
 
-## Example
+## JQuery Example
 
 <pre>
 $.appnet.authorize("MY_USER_TOKEN");
 var promise = $.appnet.post.getGlobal({ include_annotations: 1 });
 promise.then(function (response) {
-  console.dir(response);
+  // On success, response is the json object returned by the app.net server.
+  // See: http://developers.app.net/docs/basics/responses/#response-envelope
+  console.dir(response.data);
+  console.dir(response.meta);
   return $.appnet.post.getThread('1000', { count: 10 });
 }).then(function (response) {
   console.dir(response);
 }, function (response) {
+  // On failure, response is the jQuery response object.
+  // See: http://api.jquery.com/Types/#jqXHR
   console.log('Error!');
 });
+</pre>
+
+## Node.js Example
+
+<pre>
+var appnet = require('appnet');
+
+appnet.authorize("MY_USER_TOKEN");
+var promise = appnet.post.getGlobal({ include_annotations: 1 });
+promise.then(function (response) {
+  // On success, response is the json object returned by the app.net server.
+  // See: http://developers.app.net/docs/basics/responses/#response-envelope
+  console.dir(response.data);
+  console.dir(response.meta);
+  return appnet.post.getThread('1000', { count: 10 });
+}).then(function (response) {
+  console.dir(response);
+}, function (response) {
+  // On failure, response is the q-io response object.
+  // See: https://github.com/kriskowal/q-io#response
+  console.dir(response.status);
+  console.log('Error!');
+});
+
 </pre>
 
 ## Reference
@@ -88,13 +120,69 @@ promise.then(function (response) {
   </tbody>
 </table>
 
+### 'all' endpoints
+
+$.appnet.all provides some convenience functions for fetching the contents of an entire stream, automatically using pagination parameters to make multiple calls to the API when necessary.
+
+*Caution* These functions will keep calling and not callback until the
+entire stream is fetched. If the stream is big, this can be a long
+wait. Only use these when you are confident that the stream can be
+fetched with a few calls.
+
+These functions all return a mock response envelope with a 'data'
+field containing an array of the entire set of objects fetched. If
+they fail part of the way through, your rejection method will be
+called with the failed response object.
+
+<table>
+  <thead>
+    <tr>
+      <th width="200">Method</th>
+      <th width="240">Parameters</th>
+      <th width="350">Method Used</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>getSubscriptions</td>
+      <td>( args )</td>
+      <td>channel.getUserSubscribed</td>
+    </tr>
+    <tr>
+      <td>getMessages</td>
+      <td>( channel_id, args )</td>
+      <td>message.getChannel</td>
+    </tr>
+    <tr>
+      <td>getUserPosts</td>
+      <td>( user_id, args )</td>
+      <td>post.getUser</td>
+    </tr>
+    <tr>
+      <td>getFollowing</td>
+      <td>( user_id, args )</td>
+      <td>user.getFollowing</td>
+    </tr>
+    <tr>
+      <td>getChannelList</td>
+      <td>( channel_ids, args )</td>
+      <td>channel.getList</td>
+    </tr>
+    <tr>
+      <td>getUserList</td>
+      <td>( user_ids, args )</td>
+      <td>user.getList</td>
+    </tr>
+  </tbody>
+</table>
+
 ### app.net endpoints
 
 These endpoints all return the result of invoking $.ajax() which is a
 jQuery promise. You are then free to attach your own callbacks to it
-etc. Typically the response you receive will be either a response
-envelope with a 'data' field containing the results of your operation
-on success and a 'meta' field with the response code and any other
+etc. Typically the response you receive will be a response envelope
+with a 'data' field containing the results of your operation on
+success and a 'meta' field with the response code and any other
 information associated with your query.
 
 File upload needs tested and may need a special case.

@@ -81,6 +81,10 @@ if (typeof exports !== 'undefined')
     }
     var result = http.request(http.normalizeRequest(request));
     return result.then(function (response) {
+      if (response.status !== 200)
+      {
+        throw response;
+      }
       return Q.post(response.body, 'read', []);
     });
   };

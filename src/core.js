@@ -85,22 +85,41 @@
     var promise = $.ajax(options);
     // If we get a 429 busy response, we should retry once after
     // waiting the requisite time.
-    promise.fail(function (response) {
-      if (response.statusCode() === 429)
+    return promise.fail(function (response) {
+      var status;
+      if (typeof exports !== 'undefined')
       {
-        var delaySec = parseInt(response.getRequestHeader('Retry-After'), 10);
-        var result = wait(delaySec * 1000);
-        result.then(function () {
-          return $.ajax(options);
-        });
-        return result;
+        status = response.status;
       }
       else
       {
-        throw response;
+        status = response.statusCode();
+      }
+      if (status === 429)
+      {
+        var delaySec;
+        if (typeof exports !== 'undefined')
+        {
+          delaySec = parseInt(response.headers['Retry-After'], 10);
+        }
+        else
+        {
+          delaySec = parseInt(response.getRequestHeader('Retry-After'), 10);
+        }
+        var result = wait(delaySec * 1000);
+        return result.then(function () {
+          return $.ajax(options);
+        });
+      }
+      else
+      {
+        if (typeof exports !== 'undefined')
+        {
+          throw response;
+        }
+        return response;
       }
     });
-    return promise;
   };
 
 }(jQuery));

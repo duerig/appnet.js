@@ -1,6 +1,6 @@
 {
   "name": "appnet",
-  "version": "0.3.4",
+  "version": "0.4.0",
   "contributors": [
     "Jonathon Duerig <duerig@jonathonduerig.com> (http://alpha.app.net/duerig)",
     "Michael Vezie (http://alpha.app.net/mlv)"],
@@ -19,7 +19,6 @@
   "dependencies": {
     "q": "~0.9.6",
     "q-io": "~1.9.1",
-    "q-http": "~0.1.16",
     "querystring": "~0.2.0",
     "streamifier": "~0.0.2",
     "xtend": "~2.0.6"
