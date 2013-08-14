@@ -695,6 +695,16 @@ File upload needs tested and may need a special case.
     </tr>
     
     <tr>
+      <td>post.search</td>
+      <td>(
+        
+        
+         args )</td>
+      <td><a href="http://developers.app.net/docs/resources/post/search/#search-for-posts">Search for Posts</a></td>
+      <td>Any</td>
+    </tr>
+    
+    <tr>
       <td>channel.getUserSubscribed</td>
       <td>(
         
@@ -1325,6 +1335,16 @@ File upload needs tested and may need a special case.
         
          args )</td>
       <td><a href="http://developers.app.net/docs/resources/explore/#retrieve-an-explore-stream">Retrieve an Explore Stream</a></td>
+      <td>None</td>
+    </tr>
+    
+    <tr>
+      <td>config.get</td>
+      <td>(
+        
+        
+         args )</td>
+      <td><a href="http://developers.app.net/docs/resources/config/#retrieve-the-configuration-object">Retrieve the Configuration Object</a></td>
       <td>None</td>
     </tr>
     

@@ -63,7 +63,14 @@
         "post_or_message": [ "text" ],
         "placesearch":     [ "latitude", "longitude", "q", "radius", "count", "remove_closed",
                              "altitude", "horizontal_accuracy", "vertical_accuracy" ],
-
+        "search": [ "index", "order", "query", "text", "hashtags", "links",
+                    "link_domains", "mentions", "leading_mentions",
+                    "annotation_types", "attachment_types", "crosspost_url",
+                    "crosspost_domain", "place_id", "is_reply", "is_directed",
+                    "has_location", "has_checkin", "is_crosspost",
+                    "has_attachment", "has_oembed_photo", "has_oembed_video",
+                    "has_oembed_html5video", "has_oembed_rich", "language",
+                    "client_id", "creator_id", "reply_to", "thread_id" ],
         "user_ids":    [ "ids" ],
         "post_ids":    [ "ids" ],
         "channel_ids": [ "ids" ],
@@ -886,6 +893,23 @@
             "scope": "basic",
             "description": "Report a Post",
             "link": "http://developers.app.net/docs/resources/post/report/#report-a-post"
+        },
+        {
+            "id": "217",
+            "group": "post",
+            "name": "search",
+            "url_params": [],
+            "data_params": [],
+            "array_params": [],
+	    "get_params": [ "general_post", "search" ],
+            "method": "GET",
+            "url": [
+                "posts/search"
+            ],
+            "token": "Any",
+            "scope": "basic",
+            "description": "Search for Posts",
+            "link": "http://developers.app.net/docs/resources/post/search/#search-for-posts"
         },
         {
             "id": "300",
@@ -1907,6 +1931,23 @@
             "scope": "basic",
             "description": "Retrieve an Explore Stream",
             "link": "http://developers.app.net/docs/resources/explore/#retrieve-an-explore-stream"
+        },
+        {
+            "id": "1500",
+            "group": "config",
+            "name": "get",
+            "url_params": [],
+            "data_params": [],
+            "array_params": [],
+	    "get_params": [],
+            "method": "GET",
+            "url": [
+                "config/"
+            ],
+            "token": "None",
+            "scope": "basic",
+            "description": "Retrieve the Configuration Object",
+            "link": "http://developers.app.net/docs/resources/config/#retrieve-the-configuration-object"
         }
     ]
 }
