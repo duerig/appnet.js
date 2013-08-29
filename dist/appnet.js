@@ -154,7 +154,7 @@ if (typeof module !== 'undefined')
 'use strict';
   $.appnet.endpoints = {
     "format_version": 3,
-    "data_version": 4,
+    "data_version": 5,
     "scopes": {
         "basic": "See basic information about this user",
         "stream": "Read this user's stream",
@@ -181,7 +181,8 @@ if (typeof module !== 'undefined')
         "text",
         "token",
         "place",
-        "explore"
+        "explore",
+        "config"
     ],
     "migrations": [ ],
     "parameter_category": {
@@ -2079,7 +2080,7 @@ if (typeof module !== 'undefined')
 	    "get_params": [ "pagination" ],
             "method": "GET",
             "url": [
-                "stream/explore/"
+                "posts/stream/explore/"
             ],
             "token": "None",
             "scope": "basic",
