@@ -62,17 +62,18 @@
         "filter":          [ "name", "match_policy", "clauses"],
         "marker":          [ "id", "name", "percentage" ],
         "post_or_message": [ "text" ],
-        "placesearch":     [ "latitude", "longitude", "q", "radius", "count", "remove_closed",
+        "post_search":     [ "index", "order", "query", "text", "hashtags", "links",
+	                     "link_domains", "mentions", "leading_mentions",
+        		     "annotation_types", "attachment_types", "crosspost_url",
+			     "crosspost_domain", "place_id", "is_reply", "is_directed",
+                    	     "has_location", "has_checkin", "is_crosspost",
+                    	     "has_attachment", "has_oembed_photo", "has_oembed_video",
+                    	     "has_oembed_html5video", "has_oembed_rich", "language",
+                    	     "client_id", "creator_id", "reply_to", "thread_id" ],
+	"user_search":     [ "q", "count" ],
+	"channel_search":  [ "order", "q", "type", "creator_id", "tags" ],
+        "place_search":    [ "latitude", "longitude", "q", "radius", "count", "remove_closed",
                              "altitude", "horizontal_accuracy", "vertical_accuracy" ],
-	"channelsearch":   [ "q", "creator_id", "tags" ],
-        "search": [ "index", "order", "query", "text", "hashtags", "links",
-                    "link_domains", "mentions", "leading_mentions",
-                    "annotation_types", "attachment_types", "crosspost_url",
-                    "crosspost_domain", "place_id", "is_reply", "is_directed",
-                    "has_location", "has_checkin", "is_crosspost",
-                    "has_attachment", "has_oembed_photo", "has_oembed_video",
-                    "has_oembed_html5video", "has_oembed_rich", "language",
-                    "client_id", "creator_id", "reply_to", "thread_id" ],
         "user_ids":    [ "ids" ],
         "post_ids":    [ "ids" ],
         "channel_ids": [ "ids" ],
@@ -362,7 +363,7 @@
             "url_params": [],
             "data_params": [],
             "array_params": [],
-	    "get_params": [ "general_user" ],
+	    "get_params": [ "user_search", "general_user" ],
             "method": "GET",
             "url": [
                 "users/search"
@@ -903,7 +904,7 @@
             "url_params": [],
             "data_params": [],
             "array_params": [],
-	    "get_params": [ "general_post", "search" ],
+	    "get_params": [ "post_search", "general_post" ],
             "method": "GET",
             "url": [
                 "posts/search"
@@ -1205,7 +1206,7 @@
             "url_params": [],
             "data_params": [],
             "array_params": [],
-	    "get_params": [ "channelsearch", "general_channel" ],
+	    "get_params": [ "channel_search", "general_channel" ],
             "method": "GET",
             "url": [
                 "channels/search"
@@ -1905,7 +1906,7 @@
             "url_params": [],
             "data_params": [],
             "array_params": [],
-	    "get_params": [ "placesearch" ],
+	    "get_params": [ "place_search" ],
             "method": "GET",
             "url": [
                 "places/search"
