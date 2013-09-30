@@ -62,6 +62,7 @@
         "filter":          [ "name", "match_policy", "clauses"],
         "marker":          [ "id", "name", "percentage" ],
         "post_or_message": [ "text" ],
+	"stream_facet":    [ "has_oembed_photo" ],
         "post_search":     [ "index", "order", "query", "text", "hashtags", "links",
 	                     "link_domains", "mentions", "leading_mentions",
         		     "annotation_types", "attachment_types", "crosspost_url",
@@ -833,7 +834,7 @@
             "url_params": [],
             "data_params": [],
             "array_params": [],
-	    "get_params": [ "general_post", "pagination" ],
+	    "get_params": [ "general_post", "pagination", "stream_facet" ],
             "method": "GET",
             "url": [
                 "posts/stream"
@@ -850,7 +851,7 @@
             "url_params": [],
             "data_params": [],
             "array_params": [],
-	    "get_params": [ "general_post", "pagination" ],
+	    "get_params": [ "general_post", "pagination", "stream_facet" ],
             "method": "GET",
             "url": [
                 "posts/stream/unified"
