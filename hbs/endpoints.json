@@ -64,6 +64,7 @@
         "post_or_message": [ "text" ],
         "placesearch":     [ "latitude", "longitude", "q", "radius", "count", "remove_closed",
                              "altitude", "horizontal_accuracy", "vertical_accuracy" ],
+	"channelsearch":   [ "q", "creator_id", "tags" ],
         "search": [ "index", "order", "query", "text", "hashtags", "links",
                     "link_domains", "mentions", "leading_mentions",
                     "annotation_types", "attachment_types", "crosspost_url",
@@ -1196,6 +1197,23 @@
             "scope": "messages",
             "description": "Get current user's muted Channels",
             "link": "http://developers.app.net/docs/resources/channel/muting/#get-current-users-muted-channels"
+        },
+        {
+            "id": "315",
+            "group": "channel",
+            "name": "search",
+            "url_params": [],
+            "data_params": [],
+            "array_params": [],
+	    "get_params": [ "channelsearch", "general_channel" ],
+            "method": "GET",
+            "url": [
+                "channels/search"
+            ],
+            "token": "User",
+            "scope": "public_messages",
+            "description": "Search for Channels",
+            "link": "http://developers.app.net/docs/resources/channel/search/#search-for-channels"
         },
         {
             "id": "400",
