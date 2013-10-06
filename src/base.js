@@ -100,7 +100,8 @@ if (typeof exports !== 'undefined')
     userToken: null,
     appToken: null,
     endpoints: null,
-    core: {}
+    core: {},
+    note: {}
   };
 
   appnet.authorize = function (user, app)

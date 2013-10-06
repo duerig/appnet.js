@@ -11,7 +11,7 @@ module.exports = function (grunt) {
     concat: {
       dist: {
         src: ['src/base.js','build/endpoints.js', 'src/core.js',
-              'src/add.js'],
+              'src/add.js', 'src/note.js'],
         dest: 'dist/appnet.js'
       }
     },
