@@ -879,6 +879,16 @@ File upload needs tested and may need a special case.
     </tr>
     
     <tr>
+      <td>channel.search</td>
+      <td>(
+        
+        
+         args )</td>
+      <td><a href="http://developers.app.net/docs/resources/channel/search/#search-for-channels">Search for Channels</a></td>
+      <td>User</td>
+    </tr>
+    
+    <tr>
       <td>message.getChannel</td>
       <td>(
         

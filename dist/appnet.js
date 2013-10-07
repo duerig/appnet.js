@@ -217,16 +217,19 @@ if (typeof module !== 'undefined')
         "filter":          [ "name", "match_policy", "clauses"],
         "marker":          [ "id", "name", "percentage" ],
         "post_or_message": [ "text" ],
-        "placesearch":     [ "latitude", "longitude", "q", "radius", "count", "remove_closed",
+	"stream_facet":    [ "has_oembed_photo" ],
+        "post_search":     [ "index", "order", "query", "text", "hashtags", "links",
+	                     "link_domains", "mentions", "leading_mentions",
+        		     "annotation_types", "attachment_types", "crosspost_url",
+			     "crosspost_domain", "place_id", "is_reply", "is_directed",
+                    	     "has_location", "has_checkin", "is_crosspost",
+                    	     "has_attachment", "has_oembed_photo", "has_oembed_video",
+                    	     "has_oembed_html5video", "has_oembed_rich", "language",
+                    	     "client_id", "creator_id", "reply_to", "thread_id" ],
+	"user_search":     [ "q", "count" ],
+	"channel_search":  [ "order", "q", "type", "creator_id", "tags" ],
+        "place_search":    [ "latitude", "longitude", "q", "radius", "count", "remove_closed",
                              "altitude", "horizontal_accuracy", "vertical_accuracy" ],
-        "search": [ "index", "order", "query", "text", "hashtags", "links",
-                    "link_domains", "mentions", "leading_mentions",
-                    "annotation_types", "attachment_types", "crosspost_url",
-                    "crosspost_domain", "place_id", "is_reply", "is_directed",
-                    "has_location", "has_checkin", "is_crosspost",
-                    "has_attachment", "has_oembed_photo", "has_oembed_video",
-                    "has_oembed_html5video", "has_oembed_rich", "language",
-                    "client_id", "creator_id", "reply_to", "thread_id" ],
         "user_ids":    [ "ids" ],
         "post_ids":    [ "ids" ],
         "channel_ids": [ "ids" ],
@@ -516,7 +519,7 @@ if (typeof module !== 'undefined')
             "url_params": [],
             "data_params": [],
             "array_params": [],
-	    "get_params": [ "general_user" ],
+	    "get_params": [ "user_search", "general_user" ],
             "method": "GET",
             "url": [
                 "users/search"
@@ -986,7 +989,7 @@ if (typeof module !== 'undefined')
             "url_params": [],
             "data_params": [],
             "array_params": [],
-	    "get_params": [ "general_post", "pagination" ],
+	    "get_params": [ "general_post", "pagination", "stream_facet" ],
             "method": "GET",
             "url": [
                 "posts/stream"
@@ -1003,7 +1006,7 @@ if (typeof module !== 'undefined')
             "url_params": [],
             "data_params": [],
             "array_params": [],
-	    "get_params": [ "general_post", "pagination" ],
+	    "get_params": [ "general_post", "pagination", "stream_facet" ],
             "method": "GET",
             "url": [
                 "posts/stream/unified"
@@ -1057,7 +1060,7 @@ if (typeof module !== 'undefined')
             "url_params": [],
             "data_params": [],
             "array_params": [],
-	    "get_params": [ "general_post", "search" ],
+	    "get_params": [ "post_search", "general_post" ],
             "method": "GET",
             "url": [
                 "posts/search"
@@ -1351,6 +1354,23 @@ if (typeof module !== 'undefined')
             "scope": "messages",
             "description": "Get current user's muted Channels",
             "link": "http://developers.app.net/docs/resources/channel/muting/#get-current-users-muted-channels"
+        },
+        {
+            "id": "315",
+            "group": "channel",
+            "name": "search",
+            "url_params": [],
+            "data_params": [],
+            "array_params": [],
+	    "get_params": [ "channel_search", "general_channel" ],
+            "method": "GET",
+            "url": [
+                "channels/search"
+            ],
+            "token": "User",
+            "scope": "public_messages",
+            "description": "Search for Channels",
+            "link": "http://developers.app.net/docs/resources/channel/search/#search-for-channels"
         },
         {
             "id": "400",
@@ -2042,7 +2062,7 @@ if (typeof module !== 'undefined')
             "url_params": [],
             "data_params": [],
             "array_params": [],
-	    "get_params": [ "placesearch" ],
+	    "get_params": [ "place_search" ],
             "method": "GET",
             "url": [
                 "places/search"
@@ -2211,7 +2231,7 @@ if (typeof module !== 'undefined')
         var delaySec;
         if (typeof exports !== 'undefined')
         {
-          delaySec = parseInt(response.headers['Retry-After'], 10);
+          delaySec = parseInt(response.headers['retry-after'], 10);
         }
         else
         {
