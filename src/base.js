@@ -78,7 +78,7 @@ if (typeof exports !== 'undefined')
 
     needle.request(options.type, options.url, options.data, options, function (error, response, body)
     {
-      if (error !== undefined || response.status !== 200)
+      if (error || response.statusCode !== 200)
       {
         deferred.reject(response);
       }
@@ -103,7 +103,8 @@ if (typeof exports !== 'undefined')
     appToken: null,
     endpoints: null,
     core: {},
-    note: {}
+    note: {},
+    recipes: {}
   };
 
   appnet.authorize = function (user, app)
