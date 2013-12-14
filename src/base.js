@@ -64,29 +64,31 @@ if (typeof exports !== 'undefined')
   jQuery.ajax = function (options)
   {
     'use strict';
-    var http = require('q-io/http');
-    var Reader = require('q-io/reader');
     var Q = require('q');
-    var streamifier = require('streamifier');
-    var request = {
-      url: options.url,
-      method: options.type,
-      headers: options.headers,
-    };
-    if (options.data)
+    var needle = require('needle');
+
+    var deferred = Q.defer();
+
+    var options = jQuery.extend(options, {});
+
+    if (options.dataType === 'json')
     {
-      request.headers['Content-Type'] = 'application/json';
-      var newStream = streamifier.createReadStream(options.data);
-      request.body = Reader(newStream);
+      options.json = true;
     }
-    var result = http.request(http.normalizeRequest(request));
-    return result.then(function (response) {
-      if (response.status !== 200)
+
+    needle.request(options.type, options.url, options.data, options, function (error, response, body)
+    {
+      if (error !== undefined || response.status !== 200)
       {
-        throw response;
+        deferred.reject(response);
       }
-      return Q.post(response.body, 'read', []);
+      else
+      {
+        deferred.resolve(response);
+      }
     });
+
+    return deferred.promise;
   };
 
   jQuery.extend = require('xtend');
