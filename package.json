@@ -3,9 +3,15 @@
   "version": "0.4.0",
   "contributors": [
     "Jonathon Duerig <duerig@jonathonduerig.com> (http://alpha.app.net/duerig)",
-    "Michael Vezie (http://alpha.app.net/mlv)"],
+    "Michael Vezie (http://alpha.app.net/mlv)"
+  ],
   "description": "A library for communicating with the app.net web services API.",
-  "keywords": ["social", "app.net", "appnet", "adn"],
+  "keywords": [
+    "social",
+    "app.net",
+    "appnet",
+    "adn"
+  ],
   "homepage": "http://github.com/duerig/appnet.js",
   "bugs": {
     "url": "http://github.com/duerig/appnetjs/issues",
@@ -18,10 +24,9 @@
   },
   "dependencies": {
     "q": "~0.9.6",
-    "q-io": "~1.9.1",
     "querystring": "~0.2.0",
-    "streamifier": "~0.0.2",
-    "xtend": "~2.0.6"
+    "xtend": "~2.0.6",
+    "needle": "~0.6.3"
   },
   "devDependencies": {
     "grunt": "~0.4.1",
@@ -31,6 +36,8 @@
     "grunt-contrib-concat": "~0.3.0",
     "assemble": "~0.3.77"
   },
-  "files": ["dist/appnet.js"],
+  "files": [
+    "dist/appnet.js"
+  ],
   "main": "dist/appnet.js"
 }
