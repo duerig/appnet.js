@@ -69,22 +69,27 @@ if (typeof exports !== 'undefined')
 
     var deferred = Q.defer();
 
-    var options = jQuery.extend(options, {});
+    var options = jQuery.extend({ compressed: true }, options);
 
     if (options.dataType === 'json')
     {
       options.json = true;
     }
 
+    if (options.dataType === 'multipart')
+    {
+      options.multipart = true;
+    }
+
     needle.request(options.type, options.url, options.data, options, function (error, response, body)
     {
       if (error || response.statusCode !== 200)
       {
-        deferred.reject(response);
+        deferred.reject(body);
       }
       else
       {
-        deferred.resolve(response);
+        deferred.resolve(body);
       }
     });
 
