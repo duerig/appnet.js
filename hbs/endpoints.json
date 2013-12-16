@@ -53,7 +53,7 @@
         "avatar":          "image",
         "cover":           "image",
         "post":            [ "text", "reply_to", "machine_only", "annotations", "entities" ],
-        "channel":         [ "readers", "writers", "annotations", "type" ],
+        "channel":         [ "readers", "writers", "editors", "annotations", "type" ],
         "message":         [ "text", "reply_to", "annotations", "entities", "machine_only", "destinations" ],
         "file":            [ "kind", "type", "name", "public", "annotations" ],
         "content":         "content",
