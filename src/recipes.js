@@ -35,7 +35,6 @@
   };
 
   BroadcastMessageBuilder.prototype.send = function () {
-    var Q = require('q');
     var self = this;
 
     var parseLinks = this.parseLinks || this.parseMarkdownLinks;
@@ -48,13 +47,16 @@
       }
     };
 
-    var uploadDeferreds = [];
+    var uploadPromise;
 
     // XXX: photo/attachments are only currently supported under node.js
     if (typeof exports !== 'undefined') {
+      var Q = require('q');
+      var uploadPromises = [];
+
       if (this.photo) {
         var fileObj = _uploadFile('com.github.duerig.appnetjs.photo', this.photo);
-        uploadDeferreds.push(fileObj.then(function (response) {
+        uploadPromises.push(fileObj.then(function (response) {
           var photo = response.data;
           if (photo) {
             message['annotations'].push({
@@ -75,7 +77,7 @@
 
       if (this.attachment) {
         var fileObj = _uploadFile('com.github.duerig.appnetjs.attachment', this.attachment);
-        uploadDeferreds.push(fileObj.then(function (response) {
+        uploadPromises.push(fileObj.then(function (response) {
           var attachment = response.data;
           if (attachment) {
             message['annotations'].push({
@@ -95,9 +97,18 @@
           return response;
         }));
       }
+
+      uploadPromise = Q.all(uploadPromises);
+    } else {
+      // Create a promise which is immediately fufilled so that
+      // our reliance on Q doesn't bleed out of node.js-land; just
+      // use a jQuery promise instead
+      var deferred = $.Deferred();
+      deferred.resolve();
+      uploadPromise = deferred.promise();
     }
 
-    return Q.all(uploadDeferreds).then(function () {
+    return uploadPromise.then(function () {
       if (self.text) {
         message.text = self.text;
       } else {
