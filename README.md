@@ -771,6 +771,26 @@ File upload needs tested and may need a special case.
     </tr>
     
     <tr>
+      <td>channel.getUnreadBroadcastCount</td>
+      <td>(
+        
+        
+         args )</td>
+      <td><a href="http://developers.app.net/docs/resources/channel/lookup/#retrieve-number-of-unread-broadcast-channels">Retrieve number of unread Broadcast Channels</a></td>
+      <td>User</td>
+    </tr>
+    
+    <tr>
+      <td>channel.markBroadcastChannelsRead</td>
+      <td>(
+        
+        
+         args )</td>
+      <td><a href="http://developers.app.net/docs/resources/channel/lookup/#mark-all-broadcast-channels-as-read">Mark all Broadcast Channels as read</a></td>
+      <td>User</td>
+    </tr>
+    
+    <tr>
       <td>channel.update</td>
       <td>(
         
@@ -781,6 +801,20 @@ File upload needs tested and may need a special case.
         
          args )</td>
       <td><a href="http://developers.app.net/docs/resources/channel/lifecycle/#update-a-channel">Update a Channel</a></td>
+      <td>User</td>
+    </tr>
+    
+    <tr>
+      <td>channel.deactivate</td>
+      <td>(
+        
+          channel_id,
+        
+        
+          channel,
+        
+         args )</td>
+      <td><a href="http://developers.app.net/docs/resources/channel/lifecycle/#deactivate-a-channel">Deactivate a Channel</a></td>
       <td>User</td>
     </tr>
     

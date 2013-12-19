@@ -9,6 +9,28 @@
 (function ($) {
   'use strict';
 
+  function _uploadFile(type, filename) {
+    var mime = require('mime');
+
+    var obj = {
+      type: type,
+      content: {
+        file: filename,
+        content_type: mime.lookup(filename)
+      }
+    };
+
+    return $.ajax({
+      url: $.appnet.endpoints.base + 'files',
+      type: 'POST',
+      dataType: 'multipart',
+      data: obj,
+      headers: {
+        Authorization: 'Bearer ' + $.appnet.userToken
+      }
+    });
+  }
+
   var BroadcastMessageBuilder = function() {
   };
 
@@ -25,36 +47,94 @@
       }
     };
 
-    // photo
-    //
-    // attachment
-    //
+    var uploadPromise;
 
-    if (this.text) {
-      message.text = this.text;
+    // XXX: photo/attachments are only currently supported under node.js
+    if (typeof exports !== 'undefined') {
+      var Q = require('q');
+      var uploadPromises = [];
+
+      if (this.photo) {
+        var fileObj = _uploadFile('com.github.duerig.appnetjs.photo', this.photo);
+        uploadPromises.push(fileObj.then(function (response) {
+          var photo = response.data;
+          if (photo) {
+            message['annotations'].push({
+              type: 'net.app.core.oembed',
+              value: {
+                '+net.app.core.file': {
+                  file_id: photo.id,
+                  file_token: photo.file_token,
+                  format: 'oembed'
+                }
+              }
+            });
+          }
+
+          return response;
+        }));
+      }
+
+      if (this.attachment) {
+        var fileObj = _uploadFile('com.github.duerig.appnetjs.attachment', this.attachment);
+        uploadPromises.push(fileObj.then(function (response) {
+          var attachment = response.data;
+          if (attachment) {
+            message['annotations'].push({
+              type: 'net.app.core.attachments',
+              value: {
+                '+net.app.core.file_list': [
+                  {
+                    file_id: attachment.id,
+                    file_token: attachment.file_token,
+                    format: 'metadata'
+                  }
+                ]
+              }
+            });
+          }
+
+          return response;
+        }));
+      }
+
+      uploadPromise = Q.all(uploadPromises);
     } else {
-      message.machine_only = true;
+      // Create a promise which is immediately fufilled so that
+      // our reliance on Q doesn't bleed out of node.js-land; just
+      // use a jQuery promise instead
+      var deferred = $.Deferred();
+      deferred.resolve();
+      uploadPromise = deferred.promise();
     }
 
-    if (this.headline) {
-      message.annotations.push({
-        type: 'net.app.core.broadcast.message.metadata',
-        value: {
-          subject: this.headline
-        }
-      });
-    }
+    return uploadPromise.then(function () {
+      if (self.text) {
+        message.text = self.text;
+      } else {
+        message.machine_only = true;
+      }
 
-    if (this.readMoreLink) {
-      message.annotations.push({
-        type: 'net.app.core.crosspost',
-        value: {
-          canonical_url: this.readMoreLink
-        }
-      });
-    }
+      if (self.headline) {
+        message.annotations.push({
+          type: 'net.app.core.broadcast.message.metadata',
+          value: {
+            subject: self.headline
+          }
+        });
+      }
 
-    return $.appnet.message.create(this.channelID, message);
+      if (self.readMoreLink) {
+        message.annotations.push({
+          type: 'net.app.core.crosspost',
+          value: {
+            canonical_url: self.readMoreLink
+          }
+        });
+      }
+
+      return $.appnet.message.create(self.channelID, message);
+    });
   };
 
   $.appnet.recipes.BroadcastMessageBuilder = BroadcastMessageBuilder;

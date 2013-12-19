@@ -26,7 +26,8 @@
     "q": "~0.9.6",
     "querystring": "~0.2.0",
     "xtend": "~2.0.6",
-    "needle": "~0.6.3"
+    "needle": "~0.6.3",
+    "mime": "~1.2.11"
   },
   "devDependencies": {
     "grunt": "~0.4.1",

@@ -64,29 +64,36 @@ if (typeof exports !== 'undefined')
   jQuery.ajax = function (options)
   {
     'use strict';
-    var http = require('q-io/http');
-    var Reader = require('q-io/reader');
     var Q = require('q');
-    var streamifier = require('streamifier');
-    var request = {
-      url: options.url,
-      method: options.type,
-      headers: options.headers,
-    };
-    if (options.data)
+    var needle = require('needle');
+
+    var deferred = Q.defer();
+
+    var options = jQuery.extend({ compressed: true }, options);
+
+    if (options.dataType === 'json')
     {
-      request.headers['Content-Type'] = 'application/json';
-      var newStream = streamifier.createReadStream(options.data);
-      request.body = Reader(newStream);
+      options.json = true;
     }
-    var result = http.request(http.normalizeRequest(request));
-    return result.then(function (response) {
-      if (response.status !== 200)
+
+    if (options.dataType === 'multipart')
+    {
+      options.multipart = true;
+    }
+
+    needle.request(options.type, options.url, options.data, options, function (error, response, body)
+    {
+      if (error || response.statusCode !== 200)
       {
-        throw response;
+        deferred.reject(body);
       }
-      return Q.post(response.body, 'read', []);
+      else
+      {
+        deferred.resolve(body);
+      }
     });
+
+    return deferred.promise;
   };
 
   jQuery.extend = require('xtend');
@@ -101,7 +108,8 @@ if (typeof exports !== 'undefined')
     appToken: null,
     endpoints: null,
     core: {},
-    note: {}
+    note: {},
+    recipes: {}
   };
 
   appnet.authorize = function (user, app)
@@ -208,7 +216,7 @@ if (typeof module !== 'undefined')
         "avatar":          "image",
         "cover":           "image",
         "post":            [ "text", "reply_to", "machine_only", "annotations", "entities" ],
-        "channel":         [ "readers", "writers", "annotations", "type" ],
+        "channel":         [ "readers", "writers", "editors", "annotations", "type" ],
         "message":         [ "text", "reply_to", "annotations", "entities", "machine_only", "destinations" ],
         "file":            [ "kind", "type", "name", "public", "annotations" ],
         "content":         "content",
@@ -239,7 +247,6 @@ if (typeof module !== 'undefined')
     "base": "https://alpha-api.app.net/stream/0/",
     "endpoints": [
         {
-            "id": "100",
             "group": "user",
             "name": "get",
             "url_params": [
@@ -258,7 +265,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/user/lookup/#retrieve-a-user"
         },
         {
-            "id": "101",
             "group": "user",
             "name": "update",
             "url_params": [],
@@ -277,7 +283,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/user/profile/#update-a-user"
         },
         {
-            "id": "124",
             "group": "user",
             "name": "partialUpdate",
             "url_params": [],
@@ -296,7 +301,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/user/profile/#partially-update-a-user"
         },
         {
-            "id": "102",
             "group": "user",
             "name": "getAvatar",
             "url_params": [
@@ -316,7 +320,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/user/profile/#retrieve-a-users-avatar-image"
         },
         {
-            "id": "103",
             "group": "user",
             "name": "updateAvatar",
             "url_params": [],
@@ -335,7 +338,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/user/profile/#update-a-users-avatar-image"
         },
         {
-            "id": "104",
             "group": "user",
             "name": "getCover",
             "url_params": [
@@ -355,7 +357,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/user/profile/#retrieve-a-users-cover-image"
         },
         {
-            "id": "105",
             "group": "user",
             "name": "updateCover",
             "url_params": [],
@@ -374,7 +375,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/user/profile/#update-a-users-cover-image"
         },
         {
-            "id": "106",
             "group": "user",
             "name": "follow",
             "url_params": [
@@ -394,7 +394,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/user/following/#follow-a-user"
         },
         {
-            "id": "107",
             "group": "user",
             "name": "unfollow",
             "url_params": [
@@ -414,7 +413,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/user/following/#unfollow-a-user"
         },
         {
-            "id": "108",
             "group": "user",
             "name": "mute",
             "url_params": [
@@ -434,7 +432,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/user/muting/#mute-a-user"
         },
         {
-            "id": "109",
             "group": "user",
             "name": "unmute",
             "url_params": [
@@ -454,7 +451,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/user/muting/#unmute-a-user"
         },
         {
-            "id": "110",
             "group": "user",
             "name": "block",
             "url_params": [
@@ -474,7 +470,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/user/blocking/#block-a-user"
         },
         {
-            "id": "111",
             "group": "user",
             "name": "unblock",
             "url_params": [
@@ -494,7 +489,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/user/blocking/#unblock-a-user"
         },
         {
-            "id": "112",
             "group": "user",
             "name": "getList",
             "url_params": [],
@@ -513,7 +507,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/user/lookup/#retrieve-multiple-users"
         },
         {
-            "id": "113",
             "group": "user",
             "name": "search",
             "url_params": [],
@@ -530,7 +523,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/user/lookup/#search-for-users"
         },
         {
-            "id": "114",
             "group": "user",
             "name": "getFollowing",
             "url_params": [
@@ -550,7 +542,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/user/following/#list-users-a-user-is-following"
         },
         {
-            "id": "115",
             "group": "user",
             "name": "getFollowers",
             "url_params": [
@@ -570,7 +561,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/user/following/#list-users-following-a-user"
         },
         {
-            "id": "116",
             "group": "user",
             "name": "getFollowingIds",
             "url_params": [
@@ -590,7 +580,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/user/following/#list-user-ids-a-user-is-following"
         },
         {
-            "id": "117",
             "group": "user",
             "name": "getFollowerIds",
             "url_params": [
@@ -610,7 +599,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/user/following/#list-user-ids-following-a-user"
         },
         {
-            "id": "118",
             "group": "user",
             "name": "getMuted",
             "url_params": [
@@ -630,7 +618,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/user/muting/#list-muted-users"
         },
         {
-            "id": "119",
             "group": "user",
             "name": "getMutedList",
             "url_params": [],
@@ -649,7 +636,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/user/muting/#retrieve-muted-user-ids-for-multiple-users"
         },
         {
-            "id": "120",
             "group": "user",
             "name": "getBlocked",
             "url_params": [
@@ -669,7 +655,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/user/blocking/#list-blocked-users"
         },
         {
-            "id": "121",
             "group": "user",
             "name": "getBlockedList",
             "url_params": [],
@@ -688,7 +673,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/user/blocking/#retrieve-blocked-user-ids-for-multiple-users"
         },
         {
-            "id": "122",
             "group": "user",
             "name": "getReposters",
             "url_params": [
@@ -708,7 +692,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/user/post-interactions/#list-users-who-have-reposted-a-post"
         },
         {
-            "id": "123",
             "group": "user",
             "name": "getStars",
             "url_params": [
@@ -728,7 +711,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/user/post-interactions/#list-users-who-have-starred-a-post"
         },
         {
-            "id": "200",
             "group": "post",
             "name": "create",
             "url_params": [],
@@ -747,7 +729,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/post/lifecycle/#create-a-post"
         },
         {
-            "id": "201",
             "group": "post",
             "name": "get",
             "url_params": [
@@ -766,7 +747,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/post/lookup/#retrieve-a-post"
         },
         {
-            "id": "202",
             "group": "post",
             "name": "destroy",
             "url_params": [
@@ -785,7 +765,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/post/lifecycle/#delete-a-post"
         },
         {
-            "id": "203",
             "group": "post",
             "name": "repost",
             "url_params": [
@@ -805,7 +784,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/post/reposts/#repost-a-post"
         },
         {
-            "id": "204",
             "group": "post",
             "name": "unrepost",
             "url_params": [
@@ -825,7 +803,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/post/reposts/#unrepost-a-post"
         },
         {
-            "id": "205",
             "group": "post",
             "name": "star",
             "url_params": [
@@ -845,7 +822,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/post/stars/#star-a-post"
         },
         {
-            "id": "206",
             "group": "post",
             "name": "unstar",
             "url_params": [
@@ -865,7 +841,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/post/stars/#unstar-a-post"
         },
         {
-            "id": "207",
             "group": "post",
             "name": "getList",
             "url_params": [],
@@ -884,7 +859,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/post/lookup/#retrieve-multiple-posts"
         },
         {
-            "id": "208",
             "group": "post",
             "name": "getUser",
             "url_params": [
@@ -904,7 +878,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/post/streams/#retrieve-posts-created-by-a-user"
         },
         {
-            "id": "209",
             "group": "post",
             "name": "getUserStarred",
             "url_params": [
@@ -924,7 +897,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/post/stars/#retrieve-posts-starred-by-a-user"
         },
         {
-            "id": "210",
             "group": "post",
             "name": "getUserMentions",
             "url_params": [
@@ -944,7 +916,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/post/streams/#retrieve-posts-mentioning-a-user"
         },
         {
-            "id": "211",
             "group": "post",
             "name": "getHashtag",
             "url_params": [
@@ -963,7 +934,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/post/streams/#retrieve-tagged-posts"
         },
         {
-            "id": "212",
             "group": "post",
             "name": "getThread",
             "url_params": [
@@ -983,7 +953,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/post/replies"
         },
         {
-            "id": "213",
             "group": "post",
             "name": "getUserStream",
             "url_params": [],
@@ -1000,7 +969,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/post/streams/#retrieve-a-users-personalized-stream"
         },
         {
-            "id": "214",
             "group": "post",
             "name": "getUnifiedStream",
             "url_params": [],
@@ -1017,7 +985,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/post/streams/#retrieve-a-users-unified-stream"
         },
         {
-            "id": "215",
             "group": "post",
             "name": "getGlobal",
             "url_params": [],
@@ -1034,7 +1001,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/post/streams/#retrieve-the-global-stream"
         },
         {
-            "id": "216",
             "group": "post",
             "name": "report",
             "url_params": [
@@ -1054,7 +1020,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/post/report/#report-a-post"
         },
         {
-            "id": "217",
             "group": "post",
             "name": "search",
             "url_params": [],
@@ -1071,7 +1036,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/post/search/#search-for-posts"
         },
         {
-            "id": "300",
             "group": "channel",
             "name": "getUserSubscribed",
             "url_params": [],
@@ -1088,7 +1052,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/channel/subscriptions/#get-current-users-subscribed-channels"
         },
         {
-            "id": "301",
             "group": "channel",
             "name": "create",
             "url_params": [],
@@ -1107,7 +1070,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/channel/lifecycle/#create-a-channel"
         },
         {
-            "id": "302",
             "group": "channel",
             "name": "get",
             "url_params": [
@@ -1126,7 +1088,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/channel/lookup/#retrieve-a-channel"
         },
         {
-            "id": "303",
             "group": "channel",
             "name": "getList",
             "url_params": [],
@@ -1145,7 +1106,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/channel/lookup/#retrieve-multiple-channels"
         },
         {
-            "id": "304",
             "group": "channel",
             "name": "getCreated",
             "url_params": [],
@@ -1162,7 +1122,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/channel/lookup/#retrieve-my-channels"
         },
         {
-            "id": "305",
             "group": "channel",
             "name": "getUnreadCount",
             "url_params": [],
@@ -1179,7 +1138,38 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/channel/lookup/#retrieve-number-of-unread-pm-channels"
         },
         {
-            "id": "306",
+            "group": "channel",
+            "name": "getUnreadBroadcastCount",
+            "url_params": [],
+            "data_params": [],
+            "array_params": [],
+	    "get_params": [ ],
+            "method": "GET",
+            "url": [
+                "users/me/channels/broadcast/num_unread"
+            ],
+            "token": "User",
+            "scope": "messages",
+            "description": "Retrieve number of unread Broadcast Channels",
+            "link": "http://developers.app.net/docs/resources/channel/lookup/#retrieve-number-of-unread-broadcast-channels"
+        },
+        {
+            "group": "channel",
+            "name": "markBroadcastChannelsRead",
+            "url_params": [],
+            "data_params": [],
+            "array_params": [],
+	    "get_params": [ ],
+            "method": "DELETE",
+            "url": [
+                "users/me/channels/broadcast/num_unread"
+            ],
+            "token": "User",
+            "scope": "messages",
+            "description": "Mark all Broadcast Channels as read",
+            "link": "http://developers.app.net/docs/resources/channel/lookup/#mark-all-broadcast-channels-as-read"
+        },
+        {
             "group": "channel",
             "name": "update",
             "url_params": [
@@ -1200,7 +1190,26 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/channel/lifecycle/#update-a-channel"
         },
         {
-            "id": "307",
+            "group": "channel",
+	    "name": "deactivate",
+            "url_params": [
+                "channel_id"
+            ],
+            "data_params": [
+                "channel"
+            ],
+            "array_params": [],
+	    "get_params": [ "general_channel" ],
+            "method": "DELETE",
+            "url": [
+                "channels/"
+            ],
+            "token": "User",
+            "scope": "messages",
+            "description": "Deactivate a Channel",
+            "link": "http://developers.app.net/docs/resources/channel/lifecycle/#deactivate-a-channel"
+        },
+        {
             "group": "channel",
             "name": "subscribe",
             "url_params": [
@@ -1220,7 +1229,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/channel/subscriptions/#subscribe-to-a-channel"
         },
         {
-            "id": "308",
             "group": "channel",
             "name": "unsubscribe",
             "url_params": [
@@ -1240,7 +1248,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/channel/subscriptions/#unsubscribe-from-a-channel"
         },
         {
-            "id": "309",
             "group": "channel",
             "name": "getSubscribers",
             "url_params": [
@@ -1260,7 +1267,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/channel/subscriptions/#retrieve-users-subscribed-to-a-channel"
         },
         {
-            "id": "310",
             "group": "channel",
             "name": "getSubscriberIds",
             "url_params": [
@@ -1280,7 +1286,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/channel/subscriptions/#retrieve-user-ids-subscribed-to-a-channel"
         },
         {
-            "id": "311",
             "group": "channel",
             "name": "getSubscriberIdList",
             "url_params": [],
@@ -1299,7 +1304,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/channel/subscriptions/#retrieve-user-ids-subscribed-to-a-channel"
         },
         {
-            "id": "312",
             "group": "channel",
             "name": "mute",
             "url_params": [
@@ -1319,7 +1323,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/channel/muting/#mute-a-channel"
         },
         {
-            "id": "313",
             "group": "channel",
             "name": "unmute",
             "url_params": [
@@ -1339,7 +1342,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/channel/muting/#unmute-a-channel"
         },
         {
-            "id": "314",
             "group": "channel",
             "name": "getMuted",
             "url_params": [],
@@ -1356,7 +1358,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/channel/muting/#get-current-users-muted-channels"
         },
         {
-            "id": "315",
             "group": "channel",
             "name": "search",
             "url_params": [],
@@ -1373,7 +1374,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/channel/search/#search-for-channels"
         },
         {
-            "id": "400",
             "group": "message",
             "name": "getChannel",
             "url_params": [
@@ -1393,7 +1393,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/message/lifecycle/#retrieve-the-messages-in-a-channel"
         },
         {
-            "id": "401",
             "group": "message",
             "name": "create",
             "url_params": [
@@ -1415,7 +1414,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/message/lifecycle/#create-a-message"
         },
         {
-            "id": "402",
             "group": "message",
             "name": "get",
             "url_params": [
@@ -1436,7 +1434,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/message/lookup/#retrieve-a-message"
         },
         {
-            "id": "403",
             "group": "message",
             "name": "getList",
             "url_params": [],
@@ -1455,7 +1452,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/message/lookup/#retrieve-multiple-messages"
         },
         {
-            "id": "404",
             "group": "message",
             "name": "getUser",
             "url_params": [],
@@ -1472,7 +1468,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/message/lookup/#retrieve-my-messages"
         },
         {
-            "id": "405",
             "group": "message",
             "name": "destroy",
             "url_params": [
@@ -1493,7 +1488,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/message/lifecycle/#delete-a-message"
         },
         {
-            "id": "500",
             "group": "file",
             "name": "create",
             "url_params": [],
@@ -1512,7 +1506,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/file/lifecycle/#create-a-file"
         },
         {
-            "id": "501",
             "group": "file",
             "name": "createPlaceholder",
             "url_params": [],
@@ -1531,7 +1524,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/file/lifecycle/#create-a-file"
         },
         {
-            "id": "502",
             "group": "file",
             "name": "get",
             "url_params": [
@@ -1550,7 +1542,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/file/lookup/#retrieve-a-file"
         },
         {
-            "id": "503",
             "group": "file",
             "name": "getList",
             "url_params": [],
@@ -1569,7 +1560,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/file/lookup/#retrieve-multiple-files"
         },
         {
-            "id": "504",
             "group": "file",
             "name": "destroy",
             "url_params": [
@@ -1588,7 +1578,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/file/lifecycle/#delete-a-file"
         },
         {
-            "id": "505",
             "group": "file",
             "name": "getUser",
             "url_params": [],
@@ -1605,7 +1594,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/file/lookup/#retrieve-my-files"
         },
         {
-            "id": "506",
             "group": "file",
             "name": "update",
             "url_params": [
@@ -1626,7 +1614,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/file/lifecycle/#update-a-file"
         },
         {
-            "id": "507",
             "group": "file",
             "name": "getContent",
             "url_params": [
@@ -1646,7 +1633,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/file/content/#get-file-content"
         },
         {
-            "id": "508",
             "group": "file",
             "name": "setContent",
             "url_params": [
@@ -1668,7 +1654,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/file/content/#set-file-content"
         },
         {
-            "id": "600",
             "group": "AppStream",
             "name": "create",
             "url_params": [],
@@ -1687,7 +1672,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/stream/lifecycle/#create-a-stream"
         },
         {
-            "id": "601",
             "group": "AppStream",
             "name": "get",
             "url_params": [
@@ -1706,7 +1690,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/stream/lifecycle/#retrieve-a-stream"
         },
         {
-            "id": "602",
             "group": "AppStream",
             "name": "update",
             "url_params": [
@@ -1727,7 +1710,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/stream/lifecycle/#update-a-stream"
         },
         {
-            "id": "603",
             "group": "AppStream",
             "name": "destroy",
             "url_params": [
@@ -1746,7 +1728,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/stream/lifecycle/#delete-a-stream"
         },
         {
-            "id": "604",
             "group": "AppStream",
             "name": "getAll",
             "url_params": [],
@@ -1763,7 +1744,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/stream/lifecycle/#get-current-tokens-streams"
         },
         {
-            "id": "605",
             "group": "AppStream",
             "name": "destroyAll",
             "url_params": [],
@@ -1780,7 +1760,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/stream/lifecycle/#delete-all-of-the-current-users-streams"
         },
         {
-            "id": "700",
             "group": "UserStream",
             "name": "destroy",
             "url_params": [
@@ -1799,7 +1778,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/user-stream/lifecycle/#delete-a-user-stream"
         },
         {
-            "id": "701",
             "group": "UserStream",
             "name": "destroySubscription",
             "url_params": [
@@ -1819,7 +1797,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/user-stream/lifecycle/#delete-a-user-stream-subscription"
         },
         {
-            "id": "800",
             "group": "filter",
             "name": "create",
             "url_params": [],
@@ -1838,7 +1815,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/filter/lifecycle/#create-a-filter"
         },
         {
-            "id": "801",
             "group": "filter",
             "name": "get",
             "url_params": [
@@ -1857,7 +1833,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/filter/lifecycle/#retrieve-a-filter"
         },
         {
-            "id": "802",
             "group": "filter",
             "name": "update",
             "url_params": [
@@ -1878,7 +1853,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/filter/lifecycle/#update-a-filter"
         },
         {
-            "id": "803",
             "group": "filter",
             "name": "destroy",
             "url_params": [
@@ -1897,7 +1871,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/filter/lifecycle/#delete-a-filter"
         },
         {
-            "id": "804",
             "group": "filter",
             "name": "getUser",
             "url_params": [],
@@ -1914,7 +1887,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/filter/lifecycle/#get-current-users-filters"
         },
         {
-            "id": "805",
             "group": "filter",
             "name": "destroyUser",
             "url_params": [],
@@ -1931,7 +1903,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/filter/lifecycle/#delete-all-of-the-current-users-filters"
         },
         {
-            "id": "900",
             "group": "interaction",
             "name": "get",
             "url_params": [],
@@ -1948,7 +1919,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/interaction/"
         },
         {
-            "id": "1000",
             "group": "marker",
             "name": "update",
             "url_params": [],
@@ -1967,7 +1937,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/stream-marker/#update-a-stream-marker"
         },
         {
-            "id": "1100",
             "group": "text",
             "name": "process",
             "url_params": [],
@@ -1986,7 +1955,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/text-processor/"
         },
         {
-            "id": "1200",
             "group": "token",
             "name": "get",
             "url_params": [],
@@ -2003,7 +1971,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/token/#retrieve-current-token"
         },
         {
-            "id": "1201",
             "group": "token",
             "name": "getAuthorizedIds",
             "url_params": [],
@@ -2020,7 +1987,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/token/#retrieve-authorized-user-ids-for-an-app"
         },
         {
-            "id": "1202",
             "group": "token",
             "name": "getAuthorized",
             "url_params": [],
@@ -2037,7 +2003,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/token/#retrieve-authorized-user-tokens-for-an-app"
         },
         {
-            "id": "1300",
             "group": "place",
             "name": "get",
             "url_params": [
@@ -2056,7 +2021,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/place/#retrieve-a-place"
         },
         {
-            "id": "1301",
             "group": "place",
             "name": "search",
             "url_params": [],
@@ -2073,7 +2037,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/place/#search-for-a-place"
         },
         {
-            "id": "1400",
             "group": "explore",
             "name": "show",
             "url_params": [],
@@ -2090,7 +2053,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/explore/#retrieve-all-explore-streams"
         },
         {
-            "id": "1401",
             "group": "explore",
             "name": "get",
             "url_params": [
@@ -2109,7 +2071,6 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/explore/#retrieve-an-explore-stream"
         },
         {
-            "id": "1500",
             "group": "config",
             "name": "get",
             "url_params": [],
@@ -2126,7 +2087,8 @@ if (typeof module !== 'undefined')
             "link": "http://developers.app.net/docs/resources/config/#retrieve-the-configuration-object"
         }
     ]
-};
+}
+;
 }(jQuery));
 
 /*
@@ -2566,5 +2528,148 @@ if (typeof module !== 'undefined')
     }
     return result;
   };
+
+}(jQuery));
+
+/*
+ * recipes.js
+ *
+ * Shortcuts for manipulating App.net objects.
+ *
+ */
+
+/*global jQuery: true */
+(function ($) {
+  'use strict';
+
+  function _uploadFile(type, filename) {
+    var mime = require('mime');
+
+    var obj = {
+      type: type,
+      content: {
+        file: filename,
+        content_type: mime.lookup(filename)
+      }
+    };
+
+    return $.ajax({
+      url: $.appnet.endpoints.base + 'files',
+      type: 'POST',
+      dataType: 'multipart',
+      data: obj,
+      headers: {
+        Authorization: 'Bearer ' + $.appnet.userToken
+      }
+    });
+  }
+
+  var BroadcastMessageBuilder = function() {
+  };
+
+  BroadcastMessageBuilder.prototype.send = function () {
+    var self = this;
+
+    var parseLinks = this.parseLinks || this.parseMarkdownLinks;
+
+    var message = {
+      annotations: [],
+      entities: {
+        parse_links: !!parseLinks,
+        parse_markdown_links: !!this.parseMarkdownLinks
+      }
+    };
+
+    var uploadPromise;
+
+    // XXX: photo/attachments are only currently supported under node.js
+    if (typeof exports !== 'undefined') {
+      var Q = require('q');
+      var uploadPromises = [];
+
+      if (this.photo) {
+        var fileObj = _uploadFile('com.github.duerig.appnetjs.photo', this.photo);
+        uploadPromises.push(fileObj.then(function (response) {
+          var photo = response.data;
+          if (photo) {
+            message['annotations'].push({
+              type: 'net.app.core.oembed',
+              value: {
+                '+net.app.core.file': {
+                  file_id: photo.id,
+                  file_token: photo.file_token,
+                  format: 'oembed'
+                }
+              }
+            });
+          }
+
+          return response;
+        }));
+      }
+
+      if (this.attachment) {
+        var fileObj = _uploadFile('com.github.duerig.appnetjs.attachment', this.attachment);
+        uploadPromises.push(fileObj.then(function (response) {
+          var attachment = response.data;
+          if (attachment) {
+            message['annotations'].push({
+              type: 'net.app.core.attachments',
+              value: {
+                '+net.app.core.file_list': [
+                  {
+                    file_id: attachment.id,
+                    file_token: attachment.file_token,
+                    format: 'metadata'
+                  }
+                ]
+              }
+            });
+          }
+
+          return response;
+        }));
+      }
+
+      uploadPromise = Q.all(uploadPromises);
+    } else {
+      // Create a promise which is immediately fufilled so that
+      // our reliance on Q doesn't bleed out of node.js-land; just
+      // use a jQuery promise instead
+      var deferred = $.Deferred();
+      deferred.resolve();
+      uploadPromise = deferred.promise();
+    }
+
+    return uploadPromise.then(function () {
+      if (self.text) {
+        message.text = self.text;
+      } else {
+        message.machine_only = true;
+      }
+
+      if (self.headline) {
+        message.annotations.push({
+          type: 'net.app.core.broadcast.message.metadata',
+          value: {
+            subject: self.headline
+          }
+        });
+      }
+
+      if (self.readMoreLink) {
+        message.annotations.push({
+          type: 'net.app.core.crosspost',
+          value: {
+            canonical_url: self.readMoreLink
+          }
+        });
+      }
+
+      return $.appnet.message.create(self.channelID, message);
+    });
+  };
+
+  $.appnet.recipes.BroadcastMessageBuilder = BroadcastMessageBuilder;
 
 }(jQuery));
