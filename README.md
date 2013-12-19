@@ -17,8 +17,8 @@ which are a convenient way to get an entire stream.
 When using this package with jQuery, the current release can be found at:
 
 <ul>
-  <li><a href="https://raw.github.com/duerig/appnet.js/master/dist/release/appnet.4.js">Full Source</a></li>
-  <li><a href="https://raw.github.com/duerig/appnet.js/master/dist/release/appnet.4.min.js">Minified Source</a></li>
+  <li><a href="https://raw.github.com/duerig/appnet.js/master/dist/release/appnet.5.js">Full Source</a></li>
+  <li><a href="https://raw.github.com/duerig/appnet.js/master/dist/release/appnet.5.min.js">Minified Source</a></li>
 </ul>
 
 
