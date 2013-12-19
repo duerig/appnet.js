@@ -181,6 +181,7 @@
     addAllOne('getMessages', $.appnet.message.getChannel);
     addAllOne('getUserPosts', $.appnet.post.getUser);
     addAllOne('getFollowing', $.appnet.user.getFollowing);
+    addAllOne('getFollowers', $.appnet.user.getFollowers);
     addAllList('getChannelList', $.appnet.channel.getList);
     addAllList('getUserList', $.appnet.user.getList);
   }
